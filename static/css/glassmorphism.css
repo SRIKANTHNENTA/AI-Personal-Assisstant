@@ -1,0 +1,163 @@
+/* Advanced glassmorphism layer for the neon green theme */
+
+:root {
+    --dark-navy: #050807;
+    --deep-teal: #07120d;
+    --deep-teal-alt: #0a1a12;
+    --neon-cyan: #00ff9c;
+    --soft-blue: #00c97a;
+    --glass-blur-light: blur(14px);
+    --glass-blur-medium: blur(20px);
+    --glass-blur-heavy: blur(28px);
+}
+
+.ambient-orbs {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.ambient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(18px);
+    opacity: 0.8;
+    mix-blend-mode: screen;
+    animation: orbFloat 18s ease-in-out infinite alternate;
+}
+
+.ambient-orb-1 {
+    top: -12%;
+    left: -8%;
+    width: 30rem;
+    height: 30rem;
+    background: radial-gradient(circle, rgba(0, 255, 156, 0.22) 0%, rgba(0, 255, 156, 0.04) 42%, transparent 72%);
+}
+
+.ambient-orb-2 {
+    top: 16%;
+    right: -10%;
+    width: 24rem;
+    height: 24rem;
+    background: radial-gradient(circle, rgba(0, 201, 122, 0.18) 0%, rgba(0, 201, 122, 0.05) 44%, transparent 72%);
+    animation-delay: -6s;
+}
+
+.ambient-orb-3 {
+    bottom: -14%;
+    left: 16%;
+    width: 26rem;
+    height: 26rem;
+    background: radial-gradient(circle, rgba(0, 255, 156, 0.16) 0%, rgba(0, 255, 156, 0.04) 42%, transparent 72%);
+    animation-delay: -10s;
+}
+
+#particle-container {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: radial-gradient(rgba(0, 255, 156, 0.08) 1px, transparent 1px);
+    background-size: 44px 44px;
+    opacity: 0.14;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5), transparent 92%);
+}
+
+.glass-panel,
+.glass-card,
+.glass-surface,
+.glass-surface-opaque {
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-panel::before,
+.glass-card::before,
+.glass-surface::before,
+.glass-surface-opaque::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.11), transparent 35%, transparent 64%, rgba(0, 255, 156, 0.05));
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.glass-panel::after,
+.glass-card::after,
+.glass-surface::after,
+.glass-surface-opaque::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(0, 255, 156, 0.08);
+    pointer-events: none;
+}
+
+.glass-panel > *,
+.glass-card > *,
+.glass-surface > *,
+.glass-surface-opaque > * {
+    position: relative;
+    z-index: 1;
+}
+
+.glass-panel {
+    backdrop-filter: var(--glass-blur-medium);
+    -webkit-backdrop-filter: var(--glass-blur-medium);
+}
+
+.glass-card {
+    backdrop-filter: var(--glass-blur-light);
+    -webkit-backdrop-filter: var(--glass-blur-light);
+}
+
+.premium-panel {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+    backdrop-filter: var(--glass-blur-heavy);
+    -webkit-backdrop-filter: var(--glass-blur-heavy);
+    border: 1px solid rgba(0, 255, 156, 0.16);
+    border-radius: 28px;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.premium-panel:hover {
+    border-color: rgba(0, 255, 156, 0.3);
+}
+
+.glow-ring {
+    box-shadow: 0 0 0 1px rgba(0, 255, 156, 0.14), 0 0 40px rgba(0, 255, 156, 0.12);
+}
+
+.animated-gradient {
+    background: linear-gradient(120deg, rgba(0, 255, 156, 0.08), rgba(0, 201, 122, 0.16), rgba(0, 255, 156, 0.07), rgba(0, 201, 122, 0.18));
+    background-size: 300% 300%;
+    animation: gradientDrift 12s ease infinite;
+}
+
+@keyframes orbFloat {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate3d(0, -18px, 0) scale(1.05);
+    }
+}
+
+@keyframes gradientDrift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
