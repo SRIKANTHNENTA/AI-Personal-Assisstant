@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Profile - AI Personal Assistant{% endblock %}
+
+{% block extra_css %}
+<style>
+    .profile-header {
+        position: relative;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+    }
+
+    .profile-avatar-container {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 1.5rem;
+    }
+
+    .profile-avatar {
+        width: 100%;
+        height: 100%;
+        border-radius: 30px;
+        object-fit: cover;
+        border: 4px solid var(--glass-border);
+        box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+    }
+
+    .avatar-edit-overlay {
+        position: absolute;
+        bottom: -10px;
+        right: -10px;
+        background: var(--accent-color);
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        cursor: pointer;
+        transition: transform 0.2s;
+        border: 4px solid var(--primary-bg);
+    }
+
+    .avatar-edit-overlay:hover {
+        transform: scale(1.1);
+    }
+
+    .profile-section-title {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--text-secondary);
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .profile-section-title::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: var(--glass-border);
+    }
+
+    .stat-pill {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--glass-border);
+        padding: 1.5rem;
+        border-radius: 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .stat-pill:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: var(--accent-color);
+        transform: translateY(-5px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="glass-panel overflow-hidden">
+                <!-- Profile Header -->
+                <div class="profile-header text-center border-bottom border-secondary border-opacity-10">
+                    <div class="profile-avatar-container">
+                        {% if user.profile_picture %}
+                        <img src="{{ user.profile_picture.url }}" alt="Profile" class="profile-avatar">
+                        {% else %}
+                        <div
+                            class="profile-avatar d-flex align-items-center justify-content-center bg-secondary bg-opacity-20 h-100">
+                            <i class="fas fa-user fa-4x text-secondary opacity-50"></i>
+                        </div>
+                        {% endif %}
+                        <label for="profile_picture" class="avatar-edit-overlay">
+                            <i class="fas fa-camera"></i>
+                        </label>
+                    </div>
+                    <h2 class="fw-bold mb-1">{{ user.get_full_name|default:user.username }}</h2>
+                    <p class="text-secondary small mb-0">Member since {{ user.date_joined|date:"F Y" }}</p>
+                </div>
+
+                <div class="p-5">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="file" class="d-none" id="profile_picture" name="profile_picture" accept="image/*">
+
+                        <div class="profile-section-title">Identity & Contact</div>
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-secondary text-uppercase mb-2">Username</label>
+                                <input type="text" class="form-control-premium w-100 opacity-50"
+                                    value="{{ user.username }}" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-secondary text-uppercase mb-2">Email</label>
+                                <input type="email" class="form-control-premium w-100" name="email"
+                                    value="{{ user.email }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-secondary text-uppercase mb-2">First Name</label>
+                                <input type="text" class="form-control-premium w-100" name="first_name"
+                                    value="{{ user.first_name }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-secondary text-uppercase mb-2">Last Name</label>
+                                <input type="text" class="form-control-premium w-100" name="last_name"
+                                    value="{{ user.last_name }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-secondary text-uppercase mb-2">Phone</label>
+                                <input type="tel" class="form-control-premium w-100" name="phone_number"
+                                    value="{{ user.phone_number|default:'' }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-secondary text-uppercase mb-2">Birth Date</label>
+                                <input type="date" class="form-control-premium w-100" name="date_of_birth"
+                                    value="{{ user.date_of_birth|date:'Y-m-d' }}">
+                            </div>
+                        </div>
+
+                        <div class="profile-section-title">Ecosystem Statistics</div>
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-4">
+                                <div class="stat-pill">
+                                    <div class="h3 fw-bold text-white mb-1">{{ conversation_count|default:0 }}</div>
+                                    <div class="small text-secondary fw-bold text-uppercase">Talks</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="stat-pill">
+                                    <div class="h3 fw-bold text-white mb-1">{{ task_count|default:0 }}</div>
+                                    <div class="small text-secondary fw-bold text-uppercase">Tasks</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="stat-pill">
+                                    <div class="h3 fw-bold text-white mb-1">{{ days_active|default:0 }}</div>
+                                    <div class="small text-secondary fw-bold text-uppercase">Days</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-section-title">Security & System</div>
+                        <div class="glass-card p-4 d-flex justify-content-between align-items-center mb-5">
+                            <div>
+                                <h6 class="fw-bold text-white mb-1">Account Protection</h6>
+                                <p class="small text-secondary mb-0">Managed by Django Authentication System</p>
+                            </div>
+                            <span
+                                class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-2">Active</span>
+                        </div>
+
+                        <div class="d-flex gap-3 mt-5">
+                            <button type="submit" class="btn-premium px-5">
+                                <i class="fas fa-save me-2"></i> Sync Changes
+                            </button>
+                            <a href="{% url 'dashboard' %}"
+                                class="btn btn-outline-light rounded-pill px-4 border-secondary border-opacity-50">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

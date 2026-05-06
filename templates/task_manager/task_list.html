@@ -1,0 +1,285 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Planner - AI Personal Assistant{% endblock %}
+
+{% block extra_css %}
+<style>
+    .task-card-premium {
+        position: relative;
+        overflow: hidden;
+        border-left: 4px solid var(--accent-color);
+        padding: 1.5rem;
+    }
+
+    .task-card-premium.priority-high {
+        border-left-color: var(--danger);
+    }
+
+    .task-card-premium.priority-medium {
+        border-left-color: var(--accent-color);
+    }
+
+    .task-card-premium.priority-low {
+        border-left-color: var(--success);
+    }
+
+    .task-badge {
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 4px 10px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--glass-border);
+    }
+
+    .filter-btn {
+        border-radius: 12px;
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        transition: all 0.2s;
+    }
+
+    .filter-btn.active {
+        background: var(--accent-color);
+        color: white !important;
+        box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    .deadline-chip {
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 0.2rem 0.55rem;
+        font-size: 0.7rem;
+    }
+
+    .countdown-danger {
+        border-color: rgba(239, 68, 68, 0.35);
+        color: #fecaca;
+    }
+
+    .countdown-warning {
+        border-color: rgba(245, 158, 11, 0.45);
+        color: #fde68a;
+    }
+
+    .reminder-banner {
+        border-radius: 14px;
+        border: 1px solid rgba(251, 191, 36, 0.28);
+        background: rgba(251, 191, 36, 0.1);
+        color: #fde68a;
+        padding: 0.7rem 0.9rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-end mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Task Planner</h2>
+            <p class="text-secondary small mb-0">Organize your goals with AI assistance.</p>
+        </div>
+        <div class="d-flex gap-2 flex-wrap justify-content-end">
+            <a href="{% url 'chat_companion:new_conversation' %}" class="btn btn-outline-light rounded-pill px-3">
+                <i class="fas fa-comments me-2"></i> New Chat
+            </a>
+            <a href="{% url 'create_task' %}" class="btn-premium text-decoration-none">
+                <i class="fas fa-plus me-2"></i> Create Task
+            </a>
+        </div>
+    </div>
+
+    <div id="task-reminder-banner" class="reminder-banner mb-3 d-none"></div>
+
+    <!-- Task Filters -->
+    <div class="glass-panel p-3 mb-4 d-flex gap-2">
+        <a href="?status=all"
+            class="filter-btn text-secondary text-decoration-none {% if not request.GET.status or request.GET.status == 'all' %}active{% endif %}">
+            All Tasks
+        </a>
+        <a href="?status=pending"
+            class="filter-btn text-secondary text-decoration-none {% if request.GET.status == 'pending' %}active{% endif %}">
+            Pending
+        </a>
+        <a href="?status=completed"
+            class="filter-btn text-secondary text-decoration-none {% if request.GET.status == 'completed' %}active{% endif %}">
+            Completed
+        </a>
+    </div>
+
+    <!-- Tasks List -->
+    {% if tasks %}
+    <div class="row g-4">
+        {% for task in tasks %}
+        <div class="col-md-6">
+            <div class="glass-card task-card-premium priority-{{ task.priority }}">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div class="d-flex align-items-center gap-3">
+                        {% if task.status != 'completed' %}
+                        <form method="post" action="{% url 'complete_task' task.id %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn p-0 text-secondary hover-accent" title="Mark as complete">
+                                <i class="far fa-circle h4 mb-0"></i>
+                            </button>
+                        </form>
+                        {% else %}
+                        <i class="fas fa-check-circle text-success h4 mb-0"></i>
+                        {% endif %}
+                        <h5
+                            class="mb-0 fw-bold {% if task.status == 'completed' %}text-decoration-line-through text-secondary opacity-50{% endif %}">
+                            {{ task.title }}
+                        </h5>
+                    </div>
+                    <span class="task-badge">{{ task.get_priority_display }}</span>
+                </div>
+
+                {% if task.description %}
+                <p class="small text-secondary mb-3">{{ task.description|truncatewords:25 }}</p>
+                {% endif %}
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex gap-3">
+                        {% if task.due_date %}
+                        <div class="small text-secondary">
+                            <i class="far fa-calendar-alt me-1"></i> {{ task.due_date|date:"M d, H:i" }}
+                        </div>
+                        <span class="deadline-chip task-countdown" data-task-id="{{ task.id }}" data-due-at="{{ task.due_date|date:'c' }}">Calculating...</span>
+                        {% endif %}
+                        {% if task.ai_suggested %}
+                        <div class="small text-accent fw-bold">
+                            <i class="fas fa-robot me-1"></i> AI
+                        </div>
+                        {% endif %}
+                    </div>
+                    <button class="btn btn-link text-danger p-0 opacity-50 hover-opacity-100 delete-task-btn"
+                        data-task-id="{{ task.id }}">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="glass-panel py-5 text-center">
+        <i class="fas fa-clipboard-list fa-3x text-secondary mb-3 opacity-25"></i>
+        <h5 class="text-secondary">No tasks found</h5>
+        <p class="text-secondary small mb-4">You're all caught up! or maybe it's time to plan something new.</p>
+        <a href="{% url 'create_task' %}" class="btn btn-outline-light rounded-pill px-4 text-decoration-none">New Task</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const notifiedReminderIds = new Set();
+    const notifiedTaskSoonIds = new Set();
+    const reminderBanner = document.getElementById('task-reminder-banner');
+
+    function formatTimeRemaining(seconds) {
+        const abs = Math.max(0, Math.floor(seconds));
+        const h = Math.floor(abs / 3600);
+        const m = Math.floor((abs % 3600) / 60);
+        const s = abs % 60;
+        if (h > 0) return `${h}h ${m}m ${s}s`;
+        if (m > 0) return `${m}m ${s}s`;
+        return `${s}s`;
+    }
+
+    function updateCountdownChips() {
+        const now = Date.now();
+        document.querySelectorAll('.task-countdown').forEach((chip) => {
+            const dueAt = new Date(chip.dataset.dueAt).getTime();
+            const remainingSeconds = Math.floor((dueAt - now) / 1000);
+
+            chip.classList.remove('countdown-warning', 'countdown-danger');
+
+            if (remainingSeconds <= 0) {
+                chip.textContent = 'Due now';
+                chip.classList.add('countdown-danger');
+                return;
+            }
+
+            if (remainingSeconds <= 15 * 60) {
+                chip.classList.add('countdown-danger');
+            } else if (remainingSeconds <= 60 * 60) {
+                chip.classList.add('countdown-warning');
+            }
+
+            chip.textContent = `Due in ${formatTimeRemaining(remainingSeconds)}`;
+        });
+    }
+
+    function showBanner(message) {
+        reminderBanner.textContent = message;
+        reminderBanner.classList.remove('d-none');
+        window.clearTimeout(showBanner._timer);
+        showBanner._timer = window.setTimeout(() => reminderBanner.classList.add('d-none'), 9000);
+    }
+
+    function ensureNotificationPermission() {
+        if (!('Notification' in window)) return;
+        if (Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+    }
+
+    function notify(title, body) {
+        showBanner(`${title}: ${body}`);
+        if (!('Notification' in window)) return;
+        if (Notification.permission === 'granted') {
+            new Notification(title, { body });
+        }
+    }
+
+    async function pollReminderFeed() {
+        try {
+            const response = await fetch('{% url "reminder_feed" %}', {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            });
+            if (!response.ok) return;
+            const data = await response.json();
+
+            (data.reminders || []).forEach((reminder) => {
+                if (notifiedReminderIds.has(reminder.id)) return;
+                if (reminder.seconds_left <= 0) {
+                    notifiedReminderIds.add(reminder.id);
+                    notify('Task Reminder', reminder.message || `It's time for ${reminder.task_title}`);
+                }
+            });
+
+            (data.approaching_tasks || []).forEach((task) => {
+                // Notify once when task is 5 minutes away.
+                if (task.seconds_to_due > 0 && task.seconds_to_due <= 300 && !notifiedTaskSoonIds.has(task.id)) {
+                    notifiedTaskSoonIds.add(task.id);
+                    notify('Upcoming Task', `${task.title} is due in ${formatTimeRemaining(task.seconds_to_due)}`);
+                }
+            });
+        } catch (err) {
+            // Silent fail to avoid blocking task UI.
+            console.warn('Reminder polling error:', err);
+        }
+    }
+
+    document.querySelectorAll('.delete-task-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const taskId = this.dataset.taskId;
+            if (confirm('Permanently remove this task?')) {
+                fetch(`/tasks/${taskId}/delete/`, {
+                    method: 'POST',
+                    headers: { 'X-CSRFToken': '{{ csrf_token }}' }
+                }).then(r => { if (r.ok) location.reload(); });
+            }
+        });
+    });
+
+    ensureNotificationPermission();
+    updateCountdownChips();
+    pollReminderFeed();
+    setInterval(updateCountdownChips, 1000);
+    setInterval(pollReminderFeed, 15000);
+</script>
+{% endblock %}

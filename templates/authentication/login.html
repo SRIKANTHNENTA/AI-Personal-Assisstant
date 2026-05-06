@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login - AI Personal Assistant{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="glass-panel p-5 shadow-2xl">
+                <div class="text-center mb-5">
+                    <div class="avatar assistant robot-glow mx-auto mb-3"
+                        style="width: 60px; height: 60px; font-size: 2rem;">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h2 class="fw-bold text-gradient-premium mb-2">Welcome Back</h2>
+                    <p class="text-secondary small">Sign in to your AI companion</p>
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-4">
+                        <label class="small fw-bold text-secondary text-uppercase mb-2"
+                            style="letter-spacing: 1px;">Username</label>
+                        <div class="position-relative">
+                            <i
+                                class="fas fa-user position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary"></i>
+                            <input type="text" class="form-control-premium w-100 ps-5" name="username" required
+                                placeholder="Enter your username">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="small fw-bold text-secondary text-uppercase mb-2"
+                            style="letter-spacing: 1px;">Password</label>
+                        <div class="position-relative">
+                            <i
+                                class="fas fa-lock position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary"></i>
+                            <input type="password" class="form-control-premium w-100 ps-5" name="password" required
+                                placeholder="••••••••">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-premium w-100 py-3 mt-2">
+                        <i class="fas fa-sign-in-alt me-2"></i> Access Dashboard
+                    </button>
+                </form>
+
+                <div class="text-center mt-4">
+                    <p class="text-secondary small">New around here? <a href="{% url 'register' %}"
+                            class="text-accent text-decoration-none fw-bold">Create Account</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

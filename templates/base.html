@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AI Personal Assistant{% endblock %}</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/glassmorphism.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body class="glass-app">
+    <div class="ambient-orbs" aria-hidden="true">
+        <span class="ambient-orb ambient-orb-1"></span>
+        <span class="ambient-orb ambient-orb-2"></span>
+        <span class="ambient-orb ambient-orb-3"></span>
+    </div>
+    <div id="particle-container" aria-hidden="true"></div>
+
+    <!-- Navigation -->
+    {% if user.is_authenticated %}
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container-fluid px-3 px-md-4 px-xl-5">
+            <a class="navbar-brand" href="{% url 'dashboard' %}">
+                <i class="fas fa-robot animate-float"></i> AI COMPANION
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="{% url 'dashboard' %}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="{% url 'chat_companion:chat' %}">Chat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="{% url 'task_list' %}">Tasks</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle px-3" href="#" id="modulesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Modules
+                        </a>
+                        <ul class="dropdown-menu glass-panel dropdown-modules-menu" aria-labelledby="modulesDropdown">
+                            <li><a class="dropdown-item dropdown-module-item" href="{% url 'voice_assistant:home' %}"><i class="fas fa-microphone-alt me-2 text-accent"></i>Voice Assistant</a></li>
+                            <li><a class="dropdown-item dropdown-module-item" href="{% url 'notes:home' %}"><i class="fas fa-note-sticky me-2 text-accent"></i>Notes + Memory</a></li>
+                            <li><a class="dropdown-item dropdown-module-item" href="{% url 'vision:home' %}"><i class="fas fa-camera-retro me-2 text-accent"></i>Scan & Vision</a></li>
+                            <li><a class="dropdown-item dropdown-module-item" href="{% url 'music:home' %}"><i class="fas fa-music me-2 text-accent"></i>Music AI</a></li>
+                            <li><a class="dropdown-item dropdown-module-item" href="{% url 'email_ai:home' %}"><i class="fas fa-envelope-open-text me-2 text-accent"></i>Email AI</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown px-3">
+                        <a class="nav-link dropdown-toggle btn-premium py-2 px-4 ms-lg-3" href="#" id="userDropdown" role="button"
+                            data-bs-toggle="dropdown">
+                            {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end glass-panel mt-2">
+                            <li><a class="dropdown-item text-white" href="{% url 'profile' %}">Profile</a></li>
+                            <li><hr class="dropdown-divider border-secondary"></li>
+                            <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% endif %}
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="container-fluid px-3 px-md-4 px-xl-5 mt-4">
+        {% for message in messages %}
+        <div class="alert glass-panel border-0 text-white alert-dismissible fade show" role="alert">
+            <i class="fas fa-info-circle me-2"></i> {{ message }}
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="page-transition">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer mt-5 py-5 border-top border-secondary border-opacity-25">
+        <div class="container-fluid px-3 px-md-4 px-xl-5 text-center">
+            <p class="text-secondary small mb-0">&copy; 2026 AI Personal Assistant. Engineered for meaningful interaction.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="{% static 'js/main.js' %}"></script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

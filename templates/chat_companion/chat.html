@@ -1,0 +1,1038 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Chat - AI Personal Assistant{% endblock %}
+
+{% block extra_css %}
+<style>
+    html,
+    body.glass-app {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    main.page-transition {
+        height: calc(100vh - 76px);
+        overflow: hidden;
+        display: flex;
+        min-height: 0;
+    }
+
+    .app-footer {
+        display: none;
+    }
+
+    .chat-page-shell {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .chat-page-shell > .container {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        overflow: hidden;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    .chat-wrapper {
+        height: 100%;
+        display: flex;
+        gap: 18px;
+        align-items: stretch;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .chat-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        min-height: 0;
+    }
+
+    .chat-header {
+        padding: 1.5rem 2rem;
+        background: rgba(255, 255, 255, 0.03);
+        border-bottom: 1px solid var(--glass-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .assistant-core {
+        margin: 1rem 1rem 0;
+        padding: 1.25rem 1.5rem;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 1rem;
+        align-items: center;
+        transition: opacity 0.28s ease, transform 0.28s ease, max-height 0.28s ease, margin 0.28s ease, padding 0.28s ease;
+        max-height: 18rem;
+        overflow: hidden;
+    }
+
+    .assistant-core.is-collapsed {
+        opacity: 0;
+        transform: translateY(-12px);
+        max-height: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        pointer-events: none;
+    }
+
+    .assistant-core-state {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+
+    .assistant-core-kicker {
+        color: var(--text-secondary);
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+    }
+
+    .assistant-core-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text-primary);
+    }
+
+    .assistant-core-meta {
+        color: var(--text-secondary);
+        font-size: 0.86rem;
+    }
+
+    .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        min-height: 0;
+        scroll-behavior: smooth;
+    }
+
+    .message {
+        display: flex;
+        align-items: flex-end;
+        gap: 12px;
+        max-width: 80%;
+        animation: slideIn 0.3s ease-out;
+    }
+
+    .message.user {
+        margin-left: auto;
+        flex-direction: row-reverse;
+    }
+
+    .message-bubble {
+        padding: 1rem 1.5rem;
+        border-radius: 20px;
+        position: relative;
+        font-size: 0.95rem;
+    }
+
+    .message.user .message-bubble {
+        background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-secondary) 100%);
+        color: #02130d;
+        border-bottom-right-radius: 4px;
+        box-shadow: 0 10px 28px rgba(0, 255, 156, 0.18);
+    }
+
+    .message.assistant .message-bubble {
+        background: var(--glass-bg);
+        backdrop-filter: var(--glass-blur);
+        border: 1px solid var(--glass-border);
+        color: var(--text-primary);
+        border-bottom-left-radius: 4px;
+    }
+
+    .avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 1.2rem;
+    }
+
+    .avatar.user {
+        background: var(--secondary-bg);
+        color: var(--text-secondary);
+    }
+
+    .avatar.assistant {
+        background: var(--accent-color);
+        color: #02130d;
+        box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    .message-time {
+        font-size: 0.7rem;
+        color: var(--text-secondary);
+        margin-top: 4px;
+        display: block;
+    }
+
+    .xai-note {
+        margin-top: 0.55rem;
+        padding-top: 0.45rem;
+        border-top: 1px dashed rgba(255, 255, 255, 0.12);
+        color: var(--text-secondary);
+        font-size: 0.78rem;
+        line-height: 1.4;
+        white-space: pre-wrap;
+    }
+
+    .xai-note i {
+        color: var(--accent-color);
+        margin-right: 0.35rem;
+    }
+
+    .chat-input-area {
+        padding: 1.5rem 2rem;
+        background: rgba(5, 8, 7, 0.65);
+        border-top: 1px solid var(--glass-border);
+        flex-shrink: 0;
+    }
+
+    .input-wrapper {
+        display: flex;
+        gap: 12px;
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        padding: 8px;
+        border-radius: 16px;
+        align-items: center;
+    }
+
+    .chat-input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        color: var(--text-primary);
+        padding: 10px 15px;
+        outline: none !important;
+        caret-color: var(--accent-color);
+    }
+
+    .btn-send {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: var(--accent-color);
+        color: #02130d;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .btn-send:hover {
+        transform: scale(1.05);
+        background: var(--accent-secondary);
+        box-shadow: 0 0 24px rgba(0, 255, 156, 0.22);
+    }
+
+    .context-title {
+        color: var(--text-primary) !important;
+    }
+
+    .context-memory-item {
+        color: var(--text-primary);
+    }
+
+    .context-memory-key {
+        color: var(--accent-color);
+    }
+
+    .insight-card {
+        background: linear-gradient(155deg, rgba(255, 255, 255, 0.10), rgba(0, 0, 0, 0.16));
+        border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .emotion-label {
+        color: #f8fffc !important;
+        text-shadow: 0 0 14px rgba(255, 255, 255, 0.12);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .emotion-chip {
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 0.2rem 0.45rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.26);
+        color: #ecfff7;
+        background: rgba(0, 255, 156, 0.16);
+    }
+
+    .insight-meta {
+        color: #d7e8e1 !important;
+    }
+
+    .insight-meta span {
+        color: #ffffff;
+        font-weight: 700;
+    }
+
+    .insight-explanation {
+        color: #f0f8f5;
+        line-height: 1.45;
+        white-space: pre-wrap;
+    }
+
+    .insight-value {
+        color: #101716;
+        font-weight: 600;
+    }
+
+    #latest-signal {
+        white-space: normal;
+        word-break: break-word;
+        line-height: 1.45;
+    }
+
+    .context-aware-strong {
+        background: #eef6f3 !important;
+        border: 1px solid #c8ddd6;
+        color: #0f1c1a !important;
+    }
+
+    .context-aware-strong .context-memory-key {
+        color: #0a6b54 !important;
+    }
+
+    .emotion-happy .emotion-chip,
+    .emotion-excited .emotion-chip {
+        background: rgba(0, 255, 156, 0.22);
+        color: #dfffee;
+    }
+
+    .emotion-anxious .emotion-chip,
+    .emotion-stressed .emotion-chip,
+    .emotion-angry .emotion-chip {
+        background: rgba(255, 95, 95, 0.24);
+        color: #ffe2e2;
+    }
+
+    .emotion-sad .emotion-chip,
+    .emotion-fearful .emotion-chip {
+        background: rgba(105, 163, 255, 0.24);
+        color: #e7f2ff;
+    }
+
+    .emotion-neutral .emotion-chip,
+    .emotion-calm .emotion-chip {
+        background: rgba(255, 255, 255, 0.16);
+        color: #f4fbff;
+    }
+
+    .thinking-state {
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .thinking-pulse {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--accent-color);
+        box-shadow: 0 0 18px var(--accent-glow);
+        animation: pulseGlow 2.2s ease-in-out infinite;
+    }
+
+    .typing-cursor {
+        font-size: 1.1rem;
+        margin-left: -2px;
+        color: var(--accent-color);
+        animation: cursorBlink 1s steps(1) infinite;
+    }
+
+    .input-wrapper:focus-within {
+        border-color: rgba(0, 255, 156, 0.45);
+        box-shadow: 0 0 0 0.2rem rgba(0, 255, 156, 0.16), 0 0 28px rgba(0, 255, 156, 0.08);
+    }
+
+    /* Typing Indicator */
+    .typing-indicator {
+        display: flex;
+        gap: 4px;
+        padding: 8px 12px;
+    }
+
+    .typing-dot {
+        width: 6px;
+        height: 6px;
+        background: var(--text-secondary);
+        border-radius: 50%;
+        animation: typing 1.4s infinite;
+    }
+
+    .typing-dot:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .typing-dot:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    @keyframes typing {
+
+        0%,
+        60%,
+        100% {
+            transform: translateY(0);
+            opacity: 0.3;
+        }
+
+        30% {
+            transform: translateY(-4px);
+            opacity: 1;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="chat-page-shell">
+<div class="container mt-4">
+    <div class="chat-wrapper">
+        <div class="chat-container glass-panel">
+            <div class="chat-header">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="avatar assistant robot-glow">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0 fw-bold text-gradient-premium">AI Assistant</h5>
+                        <div class="d-flex align-items-center gap-3">
+                            <span style="width: 8px; height: 8px; background: var(--success); border-radius: 50%; box-shadow: 0 0 12px var(--accent-glow);"></span>
+                            <small class="text-secondary">Ready to help</small>
+                            <div class="ms-3 d-flex gap-2">
+                                <span class="badge border border-accent text-accent" style="font-size: 0.6rem;"
+                                    title="Google STT Service Active">
+                                    <i class="fas fa-microphone-alt me-1"></i> VOICE
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex gap-2">
+                    <a href="{% url 'chat_companion:new_conversation' %}"
+                        class="btn btn-outline-light btn-outline-premium btn-sm rounded-pill px-3 border-secondary border-opacity-50">
+                        <i class="fas fa-plus me-1"></i> New Chat
+                    </a>
+                </div>
+            </div>
+
+            <div class="assistant-core glass-panel">
+                <div class="assistant-core-state">
+                    <span class="assistant-core-kicker">System online</span>
+                    <span class="assistant-core-title">Neural response field</span>
+                    <span class="assistant-core-meta">Real-time feedback, adaptive reasoning, and interaction glow</span>
+                </div>
+                <div class="ai-core-shell" style="min-height: 11rem;">
+                    <div class="ai-core-ring">
+                        <div class="ai-core-pulse"></div>
+                    </div>
+                    <div class="position-absolute text-center" style="max-width: 10rem;">
+                        <div class="fw-bold text-gradient-premium">Listening</div>
+                        <div class="thinking-state justify-content-center mt-1"><span class="thinking-pulse"></span> Active</div>
+                    </div>
+                </div>
+                <div class="assistant-core-state text-end">
+                    <span class="assistant-core-kicker">Live state</span>
+                    <span class="assistant-core-title">Thinking mode</span>
+                    <span class="assistant-core-meta">Typing, transcription, and attention cues are ready</span>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chat-messages" data-conversation-id="{{ conversation.id }}">
+                <!-- Messages load dynamically -->
+            </div>
+
+            <script id="chat-data" type="application/json">
+                [
+                    {% for message in messages %}
+                    {
+                        "content": "{{ message.content|escapejs }}",
+                        "message_type": "{{ message.message_type }}",
+                        "timestamp": "{{ message.timestamp|date:'g:i A' }}",
+                        "explanation": "{{ message.explanation|escapejs }}",
+                        "emotion": "{{ message.detected_emotion|default:'neutral'|escapejs }}",
+                        "sentiment_score": "{{ message.sentiment_score|default_if_none:0|escapejs }}"
+                    }{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                ]
+            </script>
+
+            <div class="chat-input-area">
+                <div class="input-wrapper">
+                    <button class="btn btn-link text-accent"><i class="fas fa-microphone"></i></button>
+                    <input type="text" class="chat-input" id="message-input" placeholder="Message AI Companion..."
+                        autocomplete="off">
+                    <span class="typing-cursor" aria-hidden="true">|</span>
+                    <button class="btn-send" onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar / Memories -->
+        <div class="d-none d-xl-block" style="width: 300px;">
+            <div class="glass-panel h-100 p-4">
+                <h6 class="text-uppercase small fw-bold text-secondary mb-4"><i class="fas fa-brain me-2"></i> Emotional
+                    Insight</h6>
+                <div class="p-3 glass-card insight-card mb-4" id="emotion-insight-card">
+                    <div class="small text-secondary mb-1">Detected Sentiment</div>
+                    <div class="h5 mb-0 fw-bold emotion-label" id="emotion-label">{{ emotion_insight.emotion|default:'neutral'|title }} <span class="emotion-chip">Live</span> <i class="fas fa-wave-square"></i></div>
+                    <div class="small insight-meta mt-2" id="emotion-meta">
+                        Score: <span id="emotion-score">{{ emotion_insight.sentiment_score|default:0|floatformat:2 }}</span> |
+                        Confidence: <span id="emotion-confidence">{{ emotion_insight.confidence|default:0|floatformat:2 }}</span>
+                    </div>
+                    <div class="small insight-explanation mt-2" id="emotion-explanation">{{ emotion_insight.explanation|default:'Emotion will update when you send a message.' }}</div>
+                </div>
+
+                <h6 class="text-uppercase small fw-bold mb-3 context-title">Contextual Awareness</h6>
+                <div class="d-flex flex-column gap-2 mb-3">
+                    <div class="small p-2 rounded-end context-memory-item context-aware-strong">
+                        <strong class="context-memory-key">Current emotion:</strong> <span class="insight-value" id="current-emotion-text">{{ emotion_insight.emotion|default:'neutral'|title }}</span>
+                    </div>
+                    {% if memories %}
+                    {% for memory in memories %}
+                    <div class="small p-2 border-start border-accent border-2 bg-white bg-opacity-5 rounded-end context-memory-item">
+                        <strong class="context-memory-key">{{ memory.key|title }}:</strong> {{ memory.value }}
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="small text-secondary italic">Talking to you helps me learn...</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const csrftoken = '{{ csrf_token }}';
+
+    document.addEventListener('DOMContentLoaded', function () {
+        wireChatScrollCollapse();
+        loadExistingMessages();
+        lockChatViewport();
+    });
+
+    function wireChatScrollCollapse() {
+        const messages = document.getElementById('chat-messages');
+        const core = document.querySelector('.assistant-core');
+        if (!messages || !core) return;
+
+        let suppressCollapse = true;
+        let suppressTimer = null;
+
+        const setCollapsed = (collapsed) => {
+            core.classList.toggle('is-collapsed', collapsed);
+        };
+
+        const handleScroll = () => {
+            if (suppressCollapse) return;
+            setCollapsed(messages.scrollTop > 8);
+        };
+
+        messages.addEventListener('scroll', handleScroll, { passive: true });
+
+        // Keep the top panel visible during the initial auto-scroll render.
+        suppressTimer = window.setTimeout(() => {
+            suppressCollapse = false;
+            setCollapsed(messages.scrollTop > 8);
+        }, 120);
+
+        window.addEventListener('beforeunload', () => {
+            if (suppressTimer) window.clearTimeout(suppressTimer);
+        });
+    }
+
+    function lockChatViewport() {
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+        const main = document.querySelector('main.page-transition');
+        if (main) {
+            main.style.overflow = 'hidden';
+        }
+    }
+
+    function loadExistingMessages() {
+        const chatData = JSON.parse(document.getElementById('chat-data').textContent);
+        let latestInsight = null;
+        chatData.forEach(msg => {
+            addMessageToChat(msg.content, msg.message_type, msg.timestamp, msg.explanation);
+            if (msg.message_type === 'user') {
+                latestInsight = msg;
+            }
+        });
+        if (latestInsight) {
+            updateEmotionSidebar({
+                emotion: latestInsight.emotion || 'neutral',
+                sentiment_score: Number(latestInsight.sentiment_score || 0),
+                confidence: 0,
+                valence: Number(latestInsight.sentiment_score || 0),
+                arousal: 0.5,
+                explanation: 'Detected from your latest saved message.',
+                message_preview: latestInsight.content || ''
+            });
+        }
+        scrollToBottom();
+    }
+
+    function updateEmotionSidebar(insight = {}) {
+        const emotion = (insight.emotion || 'neutral').toString();
+        const emotionSlug = emotion.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const score = Number(insight.sentiment_score ?? insight.valence ?? 0);
+        const confidence = Number(insight.confidence ?? 0);
+        const explanation = insight.explanation || 'Emotion insights will update when you send a message.';
+        const preview = insight.message_preview || 'Waiting for your first message.';
+
+        const insightCard = document.getElementById('emotion-insight-card');
+        const label = document.getElementById('emotion-label');
+        const scoreEl = document.getElementById('emotion-score');
+        const confidenceEl = document.getElementById('emotion-confidence');
+        const explanationEl = document.getElementById('emotion-explanation');
+        const latestSignalEl = document.getElementById('latest-signal');
+        const currentEmotionEl = document.getElementById('current-emotion-text');
+
+        if (insightCard) {
+            insightCard.classList.remove('emotion-happy', 'emotion-excited', 'emotion-anxious', 'emotion-stressed', 'emotion-angry', 'emotion-sad', 'emotion-fearful', 'emotion-neutral', 'emotion-calm');
+            insightCard.classList.add(`emotion-${emotionSlug}`);
+        }
+
+        if (label) {
+            label.innerHTML = `${escapeHtml(emotion.charAt(0).toUpperCase() + emotion.slice(1))} <span class="emotion-chip">Live</span> <i class="fas fa-wave-square"></i>`;
+        }
+        if (scoreEl) scoreEl.textContent = Number.isFinite(score) ? score.toFixed(2) : '0.00';
+        if (confidenceEl) confidenceEl.textContent = Number.isFinite(confidence) ? confidence.toFixed(2) : '0.00';
+        if (explanationEl) explanationEl.textContent = explanation;
+        if (latestSignalEl) latestSignalEl.textContent = preview;
+        if (currentEmotionEl) currentEmotionEl.textContent = emotion.charAt(0).toUpperCase() + emotion.slice(1);
+    }
+
+    function addMessageToChat(content, type, timestamp = '', explanation = '') {
+        const container = document.getElementById('chat-messages');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${type}`;
+
+        if (!timestamp) {
+            const now = new Date();
+            timestamp = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+        }
+
+        const icon = type === 'user' ? 'fa-user' : 'fa-robot';
+        const avatarClass = type === 'user' ? 'user' : 'assistant';
+
+        let xaiHtml = '';
+        if (type === 'assistant' && explanation) {
+            const safeExplanation = escapeHtml(explanation);
+            xaiHtml = `
+                <div class="xai-note">
+                    <i class="fas fa-circle-info"></i><strong>Why this answer:</strong> ${safeExplanation}
+                </div>
+            `;
+        }
+
+        messageDiv.innerHTML = `
+            <div class="avatar ${avatarClass}">
+                <i class="fas ${icon}"></i>
+            </div>
+            <div class="message-bubble">
+                <div>${content}</div>
+                ${xaiHtml}
+                <span class="message-time">${timestamp}</span>
+            </div>
+        `;
+        container.appendChild(messageDiv);
+            scrollToBottom();
+    }
+
+    function escapeHtml(value) {
+        return String(value || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    function scrollToBottom() {
+        const container = document.getElementById('chat-messages');
+        container.scrollTop = container.scrollHeight;
+    }
+
+    async function sendMessage() {
+        if (isRecording) {
+            // Manual send should immediately stop live mic capture.
+            suppressVoiceAutoSend = true;
+            stopRecording();
+        }
+
+        const input = document.getElementById('message-input');
+        const message = input.value.trim();
+        if (!message) return;
+
+        addMessageToChat(message, 'user');
+        input.value = '';
+        scrollToBottom();
+
+        const typingId = 'typing-' + Date.now();
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'message assistant';
+        typingDiv.id = typingId;
+        typingDiv.innerHTML = `
+            <div class="avatar assistant">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="message-bubble">
+                <div class="typing-indicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+        `;
+        document.getElementById('chat-messages').appendChild(typingDiv);
+        scrollToBottom();
+
+        try {
+            const formData = new FormData();
+            formData.append('message', message);
+            formData.append('conversation_id', document.getElementById('chat-messages').dataset.conversationId);
+
+            const response = await fetch('{% url "chat_companion:send_message" %}', {
+                method: 'POST',
+                headers: { 'X-CSRFToken': csrftoken },
+                body: formData
+            });
+
+            const data = await response.json();
+            document.getElementById(typingId).remove();
+
+            if (data.success) {
+                addMessageToChat(data.ai_message.content, 'assistant', '', data.ai_message.explanation);
+                if (data.emotion_insights) {
+                    updateEmotionSidebar(data.emotion_insights);
+                } else if (data.user_message) {
+                    updateEmotionSidebar({
+                        emotion: data.user_message.emotion,
+                        sentiment_score: data.user_message.sentiment_score || 0,
+                        confidence: 0,
+                        valence: data.user_message.sentiment_score || 0,
+                        explanation: data.user_message.explanation || 'Emotion detected from your latest message.',
+                        message_preview: data.user_message.content || ''
+                    });
+                }
+                scrollToBottom();
+            } else {
+                addMessageToChat('System: ' + (data.error || 'Connection lost'), 'assistant');
+            }
+        } catch (error) {
+            document.getElementById(typingId)?.remove();
+            addMessageToChat('I could not reach the assistant just now. Please try again in a moment.', 'assistant');
+        }
+    }
+
+    document.getElementById('message-input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+    });
+
+    // Voice Recording Logic
+    let mediaRecorder;
+    let audioChunks = [];
+    let isRecording = false;
+    let speechRecognition = null;
+    let speechFinalText = '';
+    let speechInterimText = '';
+    let recordedMimeType = 'audio/webm';
+    let suppressVoiceAutoSend = false;
+    const micBtn = document.querySelector('.input-wrapper button i.fa-microphone').parentElement;
+    const messageInput = document.getElementById('message-input');
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+        speechRecognition = new SpeechRecognition();
+        speechRecognition.continuous = true;
+        speechRecognition.interimResults = true;
+        speechRecognition.lang = 'en-US';
+
+        speechRecognition.onresult = (event) => {
+            let finalPart = '';
+            let interimPart = '';
+
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                const transcript = event.results[i][0].transcript;
+                if (event.results[i].isFinal) {
+                    finalPart += transcript + ' ';
+                } else {
+                    interimPart += transcript + ' ';
+                }
+            }
+
+            if (finalPart) {
+                speechFinalText = `${speechFinalText} ${finalPart}`.trim();
+            }
+            speechInterimText = interimPart.trim();
+
+            // Show live transcription directly in chat input field.
+            const liveText = `${speechFinalText} ${speechInterimText}`.trim();
+            if (liveText) {
+                messageInput.value = liveText;
+            }
+        };
+
+        speechRecognition.onerror = (event) => {
+            // Keep recorder path as fallback if browser recognition fails.
+            console.warn('Browser speech recognition error:', event.error);
+        };
+    }
+
+    function resetVoiceDraft() {
+        speechFinalText = '';
+        speechInterimText = '';
+    }
+
+    micBtn.addEventListener('click', async () => {
+        if (!isRecording) {
+            startRecording();
+        } else {
+            stopRecording();
+        }
+    });
+
+    async function startRecording() {
+        try {
+            // Each new voice recording starts from a clean draft.
+            resetVoiceDraft();
+            messageInput.value = '';
+
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const preferredMimeTypes = [
+                'audio/webm;codecs=opus',
+                'audio/webm',
+                'audio/mp4'
+            ];
+            const mimeType = preferredMimeTypes.find(type => MediaRecorder.isTypeSupported(type));
+            recordedMimeType = mimeType || 'audio/webm';
+
+            mediaRecorder = mimeType
+                ? new MediaRecorder(stream, { mimeType })
+                : new MediaRecorder(stream);
+
+            audioChunks = [];
+
+            mediaRecorder.ondataavailable = (event) => {
+                audioChunks.push(event.data);
+            };
+
+            mediaRecorder.onstop = async () => {
+                if (suppressVoiceAutoSend) {
+                    suppressVoiceAutoSend = false;
+                    resetVoiceDraft();
+                    stream.getTracks().forEach(track => track.stop());
+                    return;
+                }
+
+                // Prefer browser live recognition result if available; fallback to server STT.
+                const finalText = `${speechFinalText} ${speechInterimText}`.trim();
+                if (finalText) {
+                    messageInput.value = finalText;
+                    await sendTextFromVoice(finalText);
+                } else {
+                    const audioBlob = new Blob(audioChunks, { type: recordedMimeType });
+                    await sendVoiceMessage(audioBlob);
+                }
+                resetVoiceDraft();
+                stream.getTracks().forEach(track => track.stop());
+            };
+
+            mediaRecorder.start();
+
+            if (speechRecognition) {
+                try {
+                    speechRecognition.start();
+                } catch (err) {
+                    // start() can throw if called twice; recorder fallback still works.
+                    console.warn('Speech recognition start warning:', err);
+                }
+            }
+
+            isRecording = true;
+            micBtn.classList.add('text-danger', 'animate-pulse');
+            micBtn.querySelector('i').className = 'fas fa-stop-circle';
+            messageInput.placeholder = 'Listening... speak now';
+        } catch (err) {
+            console.error('Microphone access denied:', err);
+            alert('Microphone access is required for voice support.');
+        }
+    }
+
+    function stopRecording() {
+        if (mediaRecorder && isRecording) {
+            mediaRecorder.stop();
+
+            if (speechRecognition) {
+                try {
+                    speechRecognition.stop();
+                } catch (err) {
+                    console.warn('Speech recognition stop warning:', err);
+                }
+            }
+
+            isRecording = false;
+            micBtn.classList.remove('text-danger', 'animate-pulse');
+            micBtn.querySelector('i').className = 'fas fa-microphone';
+            messageInput.placeholder = 'Type your message...';
+        }
+    }
+
+    async function sendTextFromVoice(messageText) {
+        const typingId = 'typing-' + Date.now();
+        showTypingIndicator(typingId);
+
+        try {
+            addMessageToChat(messageText, 'user');
+            scrollToBottom();
+
+            const aiFormData = new FormData();
+            aiFormData.append('message', messageText);
+
+            const aiResponse = await fetch('{% url "chat_companion:send_message" %}', {
+                method: 'POST',
+                headers: { 'X-CSRFToken': csrftoken },
+                body: aiFormData
+            });
+
+            const aiData = await aiResponse.json();
+            document.getElementById(typingId)?.remove();
+
+            if (aiData.success) {
+                addMessageToChat(aiData.ai_message.content, 'assistant', '', aiData.ai_message.explanation);
+                if (aiData.emotion_insights) {
+                    updateEmotionSidebar(aiData.emotion_insights);
+                }
+                scrollToBottom();
+            } else {
+                addMessageToChat('System: ' + (aiData.error || 'Connection lost'), 'assistant');
+            }
+            messageInput.value = '';
+            resetVoiceDraft();
+        } catch (error) {
+            document.getElementById(typingId)?.remove();
+            addMessageToChat('Voice processing failed this time. Please retry or type your message.', 'assistant');
+            messageInput.value = '';
+            resetVoiceDraft();
+        }
+    }
+
+    async function sendVoiceMessage(blob) {
+        const typingId = 'typing-' + Date.now();
+        showTypingIndicator(typingId);
+
+        try {
+            const formData = new FormData();
+            formData.append('audio', blob, 'voice_message.webm');
+
+            // Step 1: Transcribe
+            const transcriptionResponse = await fetch('{% url "chat_companion:process_voice" %}', {
+                method: 'POST',
+                headers: { 'X-CSRFToken': csrftoken },
+                body: formData
+            });
+
+            const transcriptionData = await transcriptionResponse.json();
+
+            if (transcriptionData.success && transcriptionData.text) {
+                const messageText = transcriptionData.text;
+                addMessageToChat(messageText, 'user');
+                scrollToBottom();
+
+                // Step 2: Send to AI
+                const aiFormData = new FormData();
+                aiFormData.append('message', messageText);
+
+                const aiResponse = await fetch('{% url "chat_companion:send_message" %}', {
+                    method: 'POST',
+                    headers: { 'X-CSRFToken': csrftoken },
+                    body: aiFormData
+                });
+
+                const aiData = await aiResponse.json();
+                document.getElementById(typingId).remove();
+
+                if (aiData.success) {
+                    addMessageToChat(aiData.ai_message.content, 'assistant', '', aiData.ai_message.explanation);
+                    if (aiData.emotion_insights) {
+                        updateEmotionSidebar(aiData.emotion_insights);
+                    }
+                    scrollToBottom();
+                } else {
+                    addMessageToChat('System: ' + (aiData.error || 'Connection lost'), 'assistant');
+                }
+                messageInput.value = '';
+                resetVoiceDraft();
+            } else {
+                document.getElementById(typingId).remove();
+                addMessageToChat('System: ' + (transcriptionData.error || 'Could not recognize speech'), 'assistant');
+                messageInput.value = '';
+                resetVoiceDraft();
+            }
+        } catch (error) {
+            document.getElementById(typingId)?.remove();
+            addMessageToChat('Voice processing failed this time. Please retry or type your message.', 'assistant');
+            messageInput.value = '';
+            resetVoiceDraft();
+        }
+    }
+
+    function showTypingIndicator(id) {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'message assistant';
+        typingDiv.id = id;
+        typingDiv.innerHTML = `
+            <div class="avatar assistant">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="message-bubble">
+                <div class="typing-indicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+        `;
+        document.getElementById('chat-messages').appendChild(typingDiv);
+        scrollToBottom();
+    }
+</script>
+{% endblock %}

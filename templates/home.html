@@ -1,0 +1,275 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}AI COMPANION - Intelligent Life Management{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-section {
+        min-height: calc(100vh - 88px);
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        padding: 5rem 0 4rem;
+    }
+
+    .hero-shell {
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-copy {
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-title {
+        font-size: clamp(3rem, 7vw, 5.6rem);
+        font-weight: 800;
+        line-height: 0.98;
+        letter-spacing: -0.05em;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        max-width: 34rem;
+        margin-bottom: 2.25rem;
+    }
+
+    .hero-visual {
+        position: relative;
+        min-height: 24rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero-robot {
+        font-size: clamp(8rem, 16vw, 12rem);
+        background: linear-gradient(135deg, #f8fff9 0%, var(--accent-color) 42%, var(--accent-secondary) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 32px var(--accent-glow));
+    }
+
+    .feature-card-premium {
+        padding: 2rem;
+        height: 100%;
+        min-height: 15rem;
+    }
+
+    .feature-card-premium i {
+        font-size: 2rem;
+        margin-bottom: 1.25rem;
+        color: var(--accent-color);
+        filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.2));
+    }
+
+    .feature-card-premium h3 {
+        font-size: 1.35rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+    }
+
+    .feature-card-premium p {
+        color: var(--text-secondary);
+        margin-bottom: 0;
+    }
+
+    .floating-elements {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+    }
+
+    .float-item {
+        position: absolute;
+        padding: 0.9rem 1rem;
+        border-radius: 18px;
+        color: var(--accent-color);
+        font-size: 1.35rem;
+        background: rgba(255, 255, 255, 0.06);
+        backdrop-filter: var(--glass-blur-medium);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 18px 42px rgba(1, 12, 20, 0.25);
+    }
+
+    .float-1 {
+        top: 10%;
+        left: 5%;
+        animation: float 4.2s ease-in-out infinite;
+    }
+
+    .float-2 {
+        bottom: 22%;
+        right: 12%;
+        animation: float 5.2s ease-in-out infinite 0.6s;
+    }
+
+    .float-3 {
+        top: 42%;
+        right: 6%;
+        animation: float 6s ease-in-out infinite 0.3s;
+    }
+
+    .hero-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-badge {
+        padding: 0.55rem 0.9rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-secondary);
+        font-size: 0.8rem;
+        letter-spacing: 0.04em;
+    }
+
+    .hero-stats {
+        margin-top: 4rem;
+    }
+
+    .hero-stat {
+        padding: 1.15rem 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .hero-stat .stat-number {
+        font-size: 1.55rem;
+        font-weight: 800;
+        line-height: 1;
+    }
+
+    .hero-stat .stat-label {
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+    }
+
+    @media (max-width: 991.98px) {
+        .hero-section {
+            min-height: auto;
+            padding-top: 4rem;
+        }
+
+        .hero-visual {
+            min-height: 18rem;
+            margin-top: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container hero-shell">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7 hero-copy">
+                <div class="hero-badges">
+                    <span class="hero-badge">Dark glassmorphism</span>
+                    <span class="hero-badge">Neon green accent system</span>
+                    <span class="hero-badge">AI-first interface</span>
+                </div>
+                <h1 class="hero-title text-gradient-premium animate-float">
+                    Meet Your Future<br>
+                    AI Companion.
+                </h1>
+                <p class="hero-subtitle">
+                    Experience a premium personal assistant built around calm motion, translucent surfaces, and a
+                    futuristic dark interface that keeps the focus on intelligent interaction.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{% url 'register' %}" class="btn-premium py-3 px-5">Get Started Free</a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-light btn-outline-premium rounded-pill border-2 py-3 px-5 fw-bold">
+                        Sign In
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="hero-visual premium-panel glass-panel">
+                    <div class="floating-elements" aria-hidden="true">
+                        <div class="float-item float-1"><i class="fas fa-brain"></i></div>
+                        <div class="float-item float-2"><i class="fas fa-heart"></i></div>
+                        <div class="float-item float-3"><i class="fas fa-tasks"></i></div>
+                    </div>
+                    <div class="ai-core-shell">
+                        <div class="ai-core-ring">
+                            <div class="ai-core-pulse"></div>
+                        </div>
+                        <i class="fas fa-robot hero-robot animate-float robot-glow position-absolute"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row hero-stats g-4 mt-3">
+            <div class="col-md-4">
+                <div class="glass-card hero-stat">
+                    <div class="avatar assistant robot-glow bg-accent text-dark" style="width: 56px; height: 56px;">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <div>
+                        <div class="stat-number">Natural Chat</div>
+                        <div class="stat-label">Fluid, context-aware conversations</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-card hero-stat">
+                    <div class="avatar assistant bg-accent text-dark" style="width: 56px; height: 56px;">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div>
+                        <div class="stat-number">Emotion Sense</div>
+                        <div class="stat-label">Text, voice, and facial analysis</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-card hero-stat">
+                    <div class="avatar assistant bg-accent text-dark" style="width: 56px; height: 56px;">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div>
+                        <div class="stat-number">Smart Tasks</div>
+                        <div class="stat-label">Adaptive prioritization and scheduling</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-4">
+            <div class="col-md-4">
+                <div class="glass-card feature-card-premium">
+                    <i class="fas fa-comment-dots"></i>
+                    <h3>Natural Chat</h3>
+                    <p>Engage in fluid, context-aware conversations powered by the assistant's adaptive response pipeline.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-card feature-card-premium">
+                    <i class="fas fa-heartbeat"></i>
+                    <h3>Emotion Detection</h3>
+                    <p>The interface stays centered on empathetic interaction with subtle visual depth and focus.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-card feature-card-premium">
+                    <i class="fas fa-calendar-check"></i>
+                    <h3>Smart Tasks</h3>
+                    <p>Use intelligent task organization with the same premium glass surfaces and cyan accent language.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

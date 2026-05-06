@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}New Goal - AI Personal Assistant{% endblock %}
+
+{% block extra_css %}
+<style>
+    .schedule-preview {
+        border-radius: 16px;
+        border: 1px solid var(--glass-border);
+        background: rgba(255, 255, 255, 0.03);
+        padding: 1rem 1.1rem;
+    }
+
+    .preview-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        border-radius: 999px;
+        padding: 0.3rem 0.7rem;
+        font-size: 0.72rem;
+        border: 1px solid rgba(0, 255, 156, 0.25);
+        background: rgba(0, 255, 156, 0.08);
+        color: var(--text-primary);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="glass-panel p-5">
+                <div class="text-center mb-5">
+                    <div class="d-inline-block p-3 rounded-circle bg-accent-glow mb-4">
+                        <i class="fas fa-plus fa-2x text-accent"></i>
+                    </div>
+                    <h2 class="fw-bold text-white mb-2">Create New Goal</h2>
+                    <p class="text-secondary">What would you like to accomplish today?</p>
+                </div>
+
+                {% if error %}
+                <div class="alert glass-panel border border-danger border-opacity-25 text-danger mb-4">
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                <form method="post" action="{% url 'create_task' %}">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label class="small fw-bold text-secondary text-uppercase mb-2">Goal Title</label>
+                        <input type="text" class="form-control-premium w-100" name="title" required
+                            value="{{ form_data.title|default:'' }}"
+                            placeholder="e.g., Complete Python project, Team meeting...">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="small fw-bold text-secondary text-uppercase mb-2">Details & Context</label>
+                        <textarea class="form-control-premium w-100" name="description" rows="4"
+                            placeholder="Add some notes about this goal...">{{ form_data.description|default:'' }}</textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="small fw-bold text-secondary text-uppercase mb-2">Category</label>
+                            <select class="form-control-premium w-100" name="category">
+                                <option value="work" {% if form_data.category == 'work' %}selected{% endif %}>Work</option>
+                                <option value="personal" {% if form_data.category == 'personal' %}selected{% endif %}>Personal</option>
+                                <option value="health" {% if form_data.category == 'health' %}selected{% endif %}>Health</option>
+                                <option value="shopping" {% if form_data.category == 'shopping' %}selected{% endif %}>Shopping</option>
+                                <option value="social" {% if form_data.category == 'social' %}selected{% endif %}>Social</option>
+                                <option value="learning" {% if form_data.category == 'learning' %}selected{% endif %}>Learning</option>
+                                <option value="other" {% if form_data.category == 'other' or not form_data.category %}selected{% endif %}>Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="small fw-bold text-secondary text-uppercase mb-2">Priority Level</label>
+                            <div class="d-flex gap-2">
+                                <select class="form-control-premium w-100" name="priority">
+                                    <option value="low" {% if form_data.priority == 'low' %}selected{% endif %}>Low Priority</option>
+                                    <option value="medium" {% if form_data.priority == 'medium' or not form_data.priority %}selected{% endif %}>Medium Priority</option>
+                                    <option value="high" {% if form_data.priority == 'high' %}selected{% endif %}>High Priority</option>
+                                    <option value="urgent" {% if form_data.priority == 'urgent' %}selected{% endif %}>Urgent</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="small fw-bold text-secondary text-uppercase mb-2">Estimated Duration (minutes)</label>
+                            <input type="number" min="1" class="form-control-premium w-100" name="estimated_duration"
+                                value="{{ form_data.estimated_duration|default:'' }}" placeholder="e.g., 45">
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="small fw-bold text-secondary text-uppercase mb-2">Reminder Lead Time</label>
+                            <select class="form-control-premium w-100" id="remind_before_minutes" name="remind_before_minutes">
+                                <option value="5" {% if form_data.remind_before_minutes == '5' %}selected{% endif %}>5 minutes before</option>
+                                <option value="10" {% if form_data.remind_before_minutes == '10' %}selected{% endif %}>10 minutes before</option>
+                                <option value="15" {% if form_data.remind_before_minutes == '15' or not form_data.remind_before_minutes %}selected{% endif %}>15 minutes before</option>
+                                <option value="30" {% if form_data.remind_before_minutes == '30' %}selected{% endif %}>30 minutes before</option>
+                                <option value="60" {% if form_data.remind_before_minutes == '60' %}selected{% endif %}>1 hour before</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12 mb-3">
+                            <label class="small fw-bold text-secondary text-uppercase mb-2">Deadline (Date & Time)</label>
+                            <input id="due_date" type="datetime-local" class="form-control-premium w-100" name="due_date"
+                                value="{{ form_data.due_date|default:'' }}" min="{{ now_local }}" required>
+                            <div class="small text-secondary mt-2">Notifications and reminder alerts are calculated from this deadline in real-time.</div>
+                        </div>
+                    </div>
+
+                    <div class="schedule-preview mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div class="small fw-bold text-uppercase text-secondary">Dynamic Schedule Preview</div>
+                            <span class="preview-pill"><i class="fas fa-bell"></i> Alerts Enabled</span>
+                        </div>
+                        <div id="schedule-summary" class="small text-secondary">Choose a deadline to preview reminder timing.</div>
+                    </div>
+
+                    <div class="pt-4 border-top border-secondary border-opacity-25 d-flex gap-3">
+                        <a href="{% url 'task_list' %}" class="btn btn-link text-secondary text-decoration-none px-0">
+                            Cancel
+                        </a>
+                        <button type="submit" class="btn-premium flex-grow-1">
+                            Save My Goal
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    (function () {
+        const dueInput = document.getElementById('due_date');
+        const leadInput = document.getElementById('remind_before_minutes');
+        const summaryNode = document.getElementById('schedule-summary');
+
+        function formatRelative(ms) {
+            const totalSeconds = Math.max(0, Math.floor(ms / 1000));
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            if (hours > 0) return `${hours}h ${minutes}m`;
+            return `${minutes}m`;
+        }
+
+        function updatePreview() {
+            const dueRaw = dueInput.value;
+            if (!dueRaw) {
+                summaryNode.textContent = 'Choose a deadline to preview reminder timing.';
+                return;
+            }
+
+            const dueAt = new Date(dueRaw);
+            const now = new Date();
+            const leadMinutes = parseInt(leadInput.value || '15', 10);
+            const reminderAt = new Date(dueAt.getTime() - leadMinutes * 60 * 1000);
+            const untilDue = dueAt.getTime() - now.getTime();
+
+            if (untilDue <= 0) {
+                summaryNode.textContent = 'Deadline must be in the future.';
+                return;
+            }
+
+            const untilReminder = reminderAt.getTime() - now.getTime();
+            const reminderText = untilReminder > 0
+                ? `First reminder in ${formatRelative(untilReminder)}`
+                : 'First reminder triggers shortly after save';
+
+            summaryNode.textContent = `${reminderText}. Task due in ${formatRelative(untilDue)} at ${dueAt.toLocaleString()}.`;
+        }
+
+        dueInput.addEventListener('input', updatePreview);
+        leadInput.addEventListener('change', updatePreview);
+        updatePreview();
+    })();
+</script>
+{% endblock %}

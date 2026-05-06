@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Register - AI Personal Assistant{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="glass-panel p-5 shadow-2xl">
+                <div class="text-center mb-5">
+                    <div class="avatar user mx-auto mb-3"
+                        style="width: 60px; height: 60px; font-size: 2rem; background: var(--secondary-bg); color: var(--text-secondary); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h2 class="fw-bold text-gradient-premium mb-2">Create Account</h2>
+                    <p class="text-secondary small">Join your personalized AI ecosystem</p>
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-4">
+                        <label class="small fw-bold text-secondary text-uppercase mb-2"
+                            style="letter-spacing: 1px;">Username</label>
+                        <div class="position-relative">
+                            <i
+                                class="fas fa-user position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary"></i>
+                            <input type="text" class="form-control-premium w-100 ps-5" name="username" required
+                                placeholder="Choose a username">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="small fw-bold text-secondary text-uppercase mb-2"
+                            style="letter-spacing: 1px;">Email Address</label>
+                        <div class="position-relative">
+                            <i
+                                class="fas fa-envelope position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary"></i>
+                            <input type="email" class="form-control-premium w-100 ps-5" name="email" required
+                                placeholder="name@example.com">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="small fw-bold text-secondary text-uppercase mb-2"
+                                style="letter-spacing: 1px;">Password</label>
+                            <div class="position-relative">
+                                <i
+                                    class="fas fa-lock position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary"></i>
+                                <input type="password" class="form-control-premium w-100 ps-5" name="password" required
+                                    placeholder="••••••••">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="small fw-bold text-secondary text-uppercase mb-2"
+                                style="letter-spacing: 1px;">Confirm</label>
+                            <div class="position-relative">
+                                <i
+                                    class="fas fa-shield-alt position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary"></i>
+                                <input type="password" class="form-control-premium w-100 ps-5" name="password_confirm"
+                                    required placeholder="••••••••">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-premium w-100 py-3 mt-2">
+                        <i class="fas fa-user-check me-2"></i> Register Now
+                    </button>
+                </form>
+
+                <div class="text-center mt-4">
+                    <p class="text-secondary small">Already part of the system? <a href="{% url 'login' %}"
+                            class="text-accent text-decoration-none fw-bold">Sign In</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

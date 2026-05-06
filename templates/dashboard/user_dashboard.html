@@ -1,0 +1,401 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - AI Personal Assistant{% endblock %}
+
+{% block extra_css %}
+<style>
+    .stat-card-premium {
+        padding: 1.5rem;
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stat-card-premium .stat-icon {
+        position: absolute;
+        right: -10px;
+        bottom: -10px;
+        font-size: 5rem;
+        opacity: 0.1;
+        transform: rotate(-15deg);
+    }
+
+    .action-btn-premium {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 1.5rem;
+        border-radius: 16px;
+        text-decoration: none !important;
+        color: white !important;
+        transition: all 0.3s ease;
+    }
+
+    .action-btn-premium:hover {
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-3px);
+    }
+
+    .action-btn-premium i {
+        font-size: 1.5rem;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        background: var(--accent-color);
+        box-shadow: 0 4px 15px var(--accent-glow);
+    }
+
+    .activity-list {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    .activity-item {
+        padding: 1rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        border-bottom: 1px solid var(--glass-border);
+    }
+
+    .activity-item:last-child {
+        border-bottom: none;
+    }
+
+    .module-hub {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .module-card {
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+        min-height: 13rem;
+        padding: 1.25rem;
+        color: var(--text-primary) !important;
+        text-decoration: none !important;
+        border-radius: 20px;
+        transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .module-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(0, 255, 156, 0.3);
+        box-shadow: 0 26px 72px rgba(0, 0, 0, 0.44), 0 0 30px rgba(0, 255, 156, 0.08);
+    }
+
+    .module-icon {
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-color);
+        background: rgba(0, 255, 156, 0.1);
+        box-shadow: 0 0 0 1px rgba(0, 255, 156, 0.14), 0 0 24px rgba(0, 255, 156, 0.08);
+    }
+
+    .module-card h5 {
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: 0;
+    }
+
+    .module-card p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .module-card-footer {
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .module-status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--success);
+        box-shadow: 0 0 14px var(--accent-glow);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- ANTIGRAVITY_SYSTEM_REWRITE_V4 -->
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h2 class="fw-bold mb-1 text-gradient-premium">Welcome back, {{ user.username }}</h2>
+            <p class="text-secondary small mb-0">Everything is synchronized and running smoothly.</p>
+        </div>
+        <div class="d-flex align-items-center gap-4">
+            <!-- Cognitive State Meters -->
+            <div class="glass-panel px-3 py-2 d-flex gap-3 align-items-center">
+                <div class="d-flex flex-column" title="Energy Level">
+                    <div class="d-flex justify-content-between small mb-1">
+                        <span class="text-secondary" style="font-size: 0.65rem;">ENERGY</span>
+                        <span class="fw-bold" style="font-size: 0.65rem;">{{ cognitive_state.energy_level|default:0.7|floatformat:1 }}</span>
+                    </div>
+                    <div class="progress" style="height: 4px; width: 60px; background: rgba(255,255,255,0.05);">
+                        <div class="progress-bar bg-warning" role="progressbar"
+                            style="width: {% widthratio cognitive_state.energy_level|default:0.7 1 100 %}%"></div>
+                    </div>
+                </div>
+                <div class="d-flex flex-column" title="Focus Level">
+                    <div class="d-flex justify-content-between small mb-1">
+                        <span class="text-secondary" style="font-size: 0.65rem;">FOCUS</span>
+                        <span class="fw-bold" style="font-size: 0.65rem;">{{ cognitive_state.focus_level|default:0.8|floatformat:1 }}</span>
+                    </div>
+                    <div class="progress" style="height: 4px; width: 60px; background: rgba(255,255,255,0.05);">
+                        <div class="progress-bar bg-info" role="progressbar"
+                            style="width: {% widthratio cognitive_state.focus_level|default:0.8 1 100 %}%"></div>
+                    </div>
+                </div>
+                <div class="d-flex flex-column" title="Stress Level">
+                    <div class="d-flex justify-content-between small mb-1">
+                        <span class="text-secondary" style="font-size: 0.65rem;">STRESS</span>
+                        <span class="fw-bold" style="font-size: 0.65rem;">{{ cognitive_state.stress_level|default:0.2|floatformat:1 }}</span>
+                    </div>
+                    <div class="progress" style="height: 4px; width: 60px; background: rgba(255,255,255,0.05);">
+                        <div class="progress-bar bg-danger" role="progressbar"
+                            style="width: {% widthratio cognitive_state.stress_level|default:0.2 1 100 %}%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel px-4 py-2 d-flex align-items-center gap-2">
+                <span style="width: 10px; height: 10px; background: var(--success); border-radius: 50%;"
+                    class="robot-glow"></span>
+                <span class="small fw-semibold">AI System Active</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Unified Modules -->
+    <div class="glass-panel p-4 mb-5 module-hub">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h6 class="text-secondary text-uppercase small fw-bold mb-1" style="letter-spacing: 1px;">Unified AI Modules</h6>
+                <p class="small text-secondary mb-0">One ecosystem for conversation, planning, memory, vision, media, finance, and email.</p>
+            </div>
+            <div class="d-flex align-items-center gap-2 small text-secondary">
+                <span class="module-status-dot"></span>
+                <span id="dashboard-live-status">Realtime link ready</span>
+            </div>
+        </div>
+        <div class="row g-3">
+            {% for card in module_cards %}
+            <div class="col-6 col-xl-3">
+                <a class="glass-card module-card" href="{{ card.href }}">
+                    <div class="module-icon">
+                        <i class="fas {{ card.icon }}"></i>
+                    </div>
+                    <div class="small text-secondary text-uppercase fw-bold" style="letter-spacing: 1px;">{{ card.tag }}</div>
+                    <h5>{{ card.title }}</h5>
+                    <p class="text-secondary mb-0">{{ card.description }}</p>
+                    <div class="module-card-footer">
+                        <span class="small text-accent fw-bold">Open module</span>
+                        <i class="fas fa-arrow-right text-accent"></i>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="glass-card stat-card-premium">
+                <div class="stat-icon"><i class="fas fa-tasks"></i></div>
+                <div class="small text-secondary fw-bold text-uppercase mb-1" style="letter-spacing: 1px;">Pending</div>
+                <div class="h2 fw-bold mb-0 text-white">{{ pending_tasks }}</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="glass-card stat-card-premium">
+                <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="small text-secondary fw-bold text-uppercase mb-1" style="letter-spacing: 1px;">Today</div>
+                <div class="h2 fw-bold mb-0 text-white">{{ completed_today }}</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="glass-card stat-card-premium">
+                <div class="stat-icon"><i class="fas fa-comments"></i></div>
+                <div class="small text-secondary fw-bold text-uppercase mb-1" style="letter-spacing: 1px;">Conversations
+                </div>
+                <div class="h2 fw-bold mb-0 text-white">{{ recent_conversations.count }}</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="glass-card stat-card-premium">
+                <div class="stat-icon"><i class="fas fa-smile"></i></div>
+                <div class="small text-secondary fw-bold text-uppercase mb-1" style="letter-spacing: 1px;">Mood</div>
+                <div class="h2 fw-bold mb-0 text-white">{% if recent_emotions.0 %}{{ recent_emotions.0.emotion|title
+                    }}{% else %}Steady{% endif %}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="glass-panel p-4 mb-5">
+        <h6 class="text-secondary text-uppercase small fw-bold mb-4" style="letter-spacing: 1px;">Quick Actions</h6>
+        <div class="row g-3">
+            <div class="col-6 col-md-3">
+                <a href="{% url 'chat_companion:chat' %}" class="action-btn-premium">
+                    <i class="fas fa-comments"></i>
+                    <span class="small fw-bold">Live Chat</span>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="{% url 'voice_assistant:home' %}" class="action-btn-premium">
+                    <i class="fas fa-microphone-alt"></i>
+                    <span class="small fw-bold">Voice Mode</span>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="{% url 'vision:home' %}" class="action-btn-premium">
+                    <i class="fas fa-camera-retro"></i>
+                    <span class="small fw-bold">Scan & Vision</span>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="{% url 'notes:home' %}" class="action-btn-premium">
+                    <i class="fas fa-note-sticky"></i>
+                    <span class="small fw-bold">Notes Hub</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="row g-4">
+        <!-- AI Recommendations -->
+        <h6 class="text-secondary text-uppercase small fw-bold mb-3 mt-4" style="letter-spacing: 1px;">
+            <i class="fas fa-brain me-2 text-accent"></i>AI Optimized Schedule
+        </h6>
+        <div class="activity-list glass-panel mb-4">
+            {% if recommendations.recommended_order %}
+            {% for rec_task in recommendations.recommended_order|slice:":3" %}
+            <div class="activity-item">
+                <div class="avatar small bg-accent bg-opacity-10 text-accent">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="small fw-bold">{{ rec_task.title }}</div>
+                    <div class="text-secondary" style="font-size: 0.75rem;">
+                        Recommended for: <span class="text-accent fw-bold">{{ rec_task.recommended_hour|default:"Optimal
+                            Slot" }}</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-column align-items-end">
+                    <span
+                        class="badge rounded-pill bg-accent bg-opacity-10 text-accent border border-accent border-opacity-25 px-2 mb-1"
+                        style="font-size: 0.6rem;">RL Suggestion</span>
+                    {% for expl in recommendations.explanations %}
+                    {% if expl.task_id == rec_task.id %}
+                    <div class="text-secondary italic" style="font-size: 0.65rem;" title="{{ expl.explanation }}">{{
+                        expl.summary|truncatechars:30 }}</div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="p-4 text-center text-secondary small italic">Insufficient data for behavioral scheduling.</div>
+            {% endif %}
+        </div>
+
+        <h6 class="text-secondary text-uppercase small fw-bold mb-3" style="letter-spacing: 1px;">Recent
+            Interactions</h6>
+        <div class="activity-list glass-panel">
+            {% if recent_conversations %}
+            {% for conv in recent_conversations %}
+            <div class="activity-item">
+                <div class="avatar assistant small bg-secondary">
+                    <i class="fas fa-comment-alt"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="small fw-bold">{{ conv.title|default:"Untitled Chat" }}</div>
+                    <div class="text-secondary" style="font-size: 0.75rem;">{{ conv.last_message_at|timesince }} ago
+                    </div>
+                </div>
+                <a href="{% url 'chat_companion:chat' %}" class="btn btn-link text-accent p-0"><i
+                        class="fas fa-chevron-right"></i></a>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="p-4 text-center text-secondary small italic">No conversations logged yet.</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <h6 class="text-secondary text-uppercase small fw-bold mb-3" style="letter-spacing: 1px;">Insights Timeline
+        </h6>
+        <div class="activity-list glass-panel">
+            {% if recent_emotions %}
+            {% for emotion in recent_emotions|slice:":5" %}
+            <div class="activity-item">
+                <div class="avatar small" style="background: rgba(16, 185, 129, 0.2); color: var(--success);">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="small fw-bold">{{ emotion.emotion|title }}</div>
+                    <div class="text-secondary" style="font-size: 0.75rem;">{{ emotion.detected_at|date:"M d, H:i"
+                        }}</div>
+                </div>
+                <span
+                    class="badge rounded-pill bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3">Stable</span>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="p-4 text-center text-secondary small italic">Interactive analysis pending.</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    (function () {
+        const statusNode = document.getElementById('dashboard-live-status');
+        if (!statusNode || !window.WebSocket) {
+            return;
+        }
+
+        const scheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
+        const socket = new WebSocket(`${scheme}://${window.location.host}/ws/dashboard/`);
+
+        socket.onopen = function () {
+            socket.send(JSON.stringify({ type: 'request_state' }));
+        };
+
+        socket.onmessage = function (event) {
+            try {
+                const payload = JSON.parse(event.data);
+                if (payload.type === 'dashboard_state' && payload.state) {
+                    const state = payload.state;
+                    statusNode.textContent = `${state.status || 'online'} • focus ${Math.round((state.focus_level || 0) * 100)}% • energy ${Math.round((state.energy_level || 0) * 100)}%`;
+                }
+            } catch (error) {
+                console.warn('Dashboard websocket payload error', error);
+            }
+        };
+    })();
+</script>
+{% endblock %}
