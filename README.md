@@ -2,7 +2,7 @@
 
 A comprehensive real-time web-based AI Personal Assistant application built with Django that acts as an intelligent companion capable of learning from users, adapting to their routines, detecting emotions, and managing daily tasks.
 
-## 🌟 Features
+##  Features
 
 ### AI & Machine Learning
 - **Advanced Cognitive Fusion**: Attention-based multi-modal fusion of emotional and cognitive insights from text, voice, facial expressions, and behavior.
@@ -25,7 +25,7 @@ A comprehensive real-time web-based AI Personal Assistant application built with
 - **Intelligent Reminders**: Context-aware alerts that adapt to user's real-time availability.
 - **Productivity Analytics**: Detailed correlation between emotional states and task completion performance.
 
-## 🛠️ Technology Stack
+##  Technology Stack
 
 ### Backend
 - Django 5.0+
@@ -53,7 +53,7 @@ A comprehensive real-time web-based AI Personal Assistant application built with
 - PostgreSQL (Production)
 - SQLite (Development)
 
-## 📊 Project Resources & Configuration
+##  Project Resources & Configuration
 
 ### API Keys & Services
 The application integrates several external AI services. Configuration is handled via environment variables in the `.env` file:
@@ -74,7 +74,7 @@ The assistant's "brain" is built upon several specialized datasets:
 - **Reinforcement Learning Policy**: State-action maps for optimized task scheduling.
 - **Cognitive Fusion Engine**: Attention-weighted model for multi-modal state estimation.
 
-## 📋 Prerequisites
+##  Prerequisites
 
 - Python 3.10+
 - Redis Server
@@ -82,7 +82,7 @@ The assistant's "brain" is built upon several specialized datasets:
 - OpenAI API Key
 - Google Cloud API credentials (optional, for enhanced features)
 
-## 🚀 Installation
+##  Installation
 
 ### 1. Clone the Repository
 ```bash
@@ -146,7 +146,7 @@ python manage.py runserver
 
 Visit `http://localhost:8000` in your browser.
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 personal_assistance/
@@ -168,7 +168,7 @@ personal_assistance/
 └── media/                   # User uploads
 ```
 
-## 🎯 Usage
+##  Usage
 
 ### Register & Login
 1. Navigate to the home page
@@ -193,7 +193,7 @@ personal_assistance/
 - Task completion rates
 - Behavioral patterns
 
-## 🔧 Configuration
+##  Configuration
 
 ### OpenAI API
 Required for conversational AI:
@@ -215,14 +215,14 @@ CELERY_BROKER_URL=redis://localhost:6379/0
 CELERY_RESULT_BACKEND=redis://localhost:6379/0
 ```
 
-## 🧪 Testing
+##  Testing
 
 Run tests:
 ```bash
 python manage.py test
 ```
 
-## 📊 Admin Panel
+##  Admin Panel
 
 Access admin panel at `http://localhost:8000/admin/`
 
@@ -233,7 +233,7 @@ Features:
 - API usage tracking
 - System logs
 
-## 🔒 Security
+##  Security
 
 - CSRF protection enabled
 - Secure password hashing
@@ -241,7 +241,7 @@ Features:
 - User data encryption
 - Rate limiting on API endpoints
 
-## 🌐 Deployment
+##  Deployment
 
 ### Production Checklist
 1. Set `DEBUG=False`
@@ -253,15 +253,15 @@ Features:
 7. Configure Celery workers
 8. Set up monitoring and logging
 
-## 🤝 Contributing
+##  Contributing
 
 This is a comprehensive AI assistant project. Contributions are welcome!
 
-## 📝 License
+##  License
 
 This project is for educational and demonstration purposes.
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - OpenAI for GPT-4 API
 - Django community
