@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Music AI - AI Personal Assistant{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'music/module.css' %}">
+{% endblock %}
+
+{% block content %}
+<div
+    class="music-layout-fluid py-4 music-grid"
+    id="musicApp"
+    data-state-url="{% url 'music:state' %}"
+    data-action-url="{% url 'music:player_action' %}"
+>
+    <form id="musicCsrfForm" class="d-none">{% csrf_token %}</form>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-gradient-premium mb-1">Music AI</h2>
+            <p class="text-secondary mb-0">Live mood-adaptive recommendations with real playback and visual analysis.</p>
+        </div>
+        <span class="badge border border-accent text-accent" id="moodBadge">{{ current_mood|title }}</span>
+    </div>
+
+    <div class="row g-4 align-items-stretch music-two-pane-row">
+        <div class="col-lg-5 music-left-col">
+            <div class="glass-panel p-4 h-100">
+                <div class="player-shell">
+                    <div class="record-card ai-core-shell">
+                        <div class="ai-core-ring">
+                            <div class="ai-core-pulse"></div>
+                        </div>
+                        <div class="position-absolute text-center">
+                            <div class="fw-bold text-gradient-premium" id="nowPlayingMood">{{ current_mood|title }}</div>
+                            <div class="text-secondary small" id="nowPlayingTitle">Waiting for track...</div>
+                            <div class="text-secondary small" id="nowPlayingArtist"></div>
+                        </div>
+                    </div>
+
+                    <audio id="musicAudio" crossorigin="anonymous" preload="metadata"></audio>
+
+                    <div class="audio-visualizer mt-4" id="audioVisualizer" aria-hidden="true">
+                        {% for _ in '12345678901234567890123456789012' %}
+                        <span></span>
+                        {% endfor %}
+                    </div>
+
+                    <div class="player-time-row mt-3">
+                        <span id="currentTime">0:00</span>
+                        <input id="seekBar" type="range" min="0" max="100" value="0" step="0.1">
+                        <span id="durationTime">0:00</span>
+                    </div>
+
+                    <div class="player-controls mt-3">
+                        <button id="prevBtn" class="btn btn-outline-light" type="button"><i class="fas fa-step-backward"></i></button>
+                        <button id="playPauseBtn" class="btn btn-accent" type="button"><i class="fas fa-play"></i></button>
+                        <button id="nextBtn" class="btn btn-outline-light" type="button"><i class="fas fa-step-forward"></i></button>
+                    </div>
+
+                    <div class="volume-row mt-3">
+                        <i class="fas fa-volume-down"></i>
+                        <input id="volumeSlider" type="range" min="0" max="1" value="0.8" step="0.01">
+                        <i class="fas fa-volume-up"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7 music-right-col">
+            <div class="glass-panel p-4 h-100 music-recommendations-scroll">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                    <div>
+                        <h6 class="text-uppercase text-secondary small fw-bold mb-1">Mood-ranked albums</h6>
+                        <div class="small text-secondary mb-0">Famous albums plus Bollywood and Tollywood picks ranked for your current mood.</div>
+                    </div>
+                    <span class="badge border border-accent text-accent" id="albumMoodBadge">Mood: {{ current_mood|title }}</span>
+                </div>
+
+                <div id="albumRecommendations" class="album-grid">
+                    {% for section_key, tracks in album_recommendations.items %}
+                    <section class="album-section" data-section="{{ section_key }}">
+                        <div class="album-header">
+                            <h5 class="mb-0">{{ section_key|title }}</h5>
+                            <span class="small text-secondary">Album previews</span>
+                        </div>
+                        <div class="music-list">
+                            {% for track in tracks %}
+                            <article class="music-list-item">
+                                <div class="music-main-row">
+                                    <div class="music-row-left">
+                                        <div class="album-art">
+                                            {% if track.artwork %}
+                                            <img src="{{ track.artwork }}" alt="{{ track.album_title }} artwork">
+                                            {% else %}
+                                            <div class="album-art-fallback">
+                                                <i class="fas fa-compact-disc"></i>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="album-card-body">
+                                            <div class="album-title">{{ track.album_title }}</div>
+                                            <div class="track-name text-secondary">{{ track.song_title }}</div>
+                                            <div class="track-artist text-secondary">{{ track.artist }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="music-row-actions">
+                                        {% if track.preview_url %}
+                                        <button type="button" class="btn btn-sm btn-accent js-preview-album"
+                                            data-preview-url="{{ track.preview_url }}"
+                                            data-title="{{ track.song_title|escape }}"
+                                            data-artist="{{ track.artist|escape }}"
+                                            data-album="{{ track.album_title|escape }}">
+                                            Play
+                                        </button>
+                                        {% endif %}
+                                        {% if track.external_url %}
+                                        <a href="{{ track.external_url }}" target="_blank" rel="noopener noreferrer"
+                                           class="btn btn-sm btn-outline-light">
+                                            Source
+                                        </a>
+                                        {% endif %}
+                                        <button type="button" class="btn btn-sm btn-outline-light js-toggle-details">
+                                            Details
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="music-details" hidden>
+                                    <div class="album-meta small text-secondary">{{ track.category }} | Mood: {{ track.mood|title }}</div>
+                                    <div class="small text-secondary">Album: {{ track.album_title }} | Song: {{ track.song_title }}</div>
+                                    <div class="small text-secondary">Artist: {{ track.artist }} | Source: {{ track.source|title }}</div>
+                                </div>
+                            </article>
+                            {% endfor %}
+                        </div>
+                    </section>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    window.INITIAL_PLAYER_STATE = JSON.parse('{{ player_state|escapejs }}');
+</script>
+<script src="{% static 'music/player.js' %}"></script>
+{% endblock %}
