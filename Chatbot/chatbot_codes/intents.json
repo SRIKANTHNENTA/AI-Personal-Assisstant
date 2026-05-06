@@ -1,0 +1,586 @@
+{
+    "intents": [
+        {
+            "tag": "google",
+            "patterns": [
+                "google",
+                "search",
+                "internet"
+            ],
+            "responses": [
+                "Redirecting to Google..."
+            ]
+        },
+        {
+            "tag": "greeting",
+            "patterns": [
+                "Hi there",
+                "How are you",
+                "Is anyone there?",
+                "Hey",
+                "Hola",
+                "Hello",
+                "Good day",
+                "Namaste",
+                "yo"
+            ],
+            "responses": [
+                "Hello",
+                "Good to see you again",
+                "Hi there, how can I help?"
+            ],
+            "context": [
+                ""
+            ]
+        },
+        {
+            "tag": "goodbye",
+            "patterns": [
+                "Bye",
+                "See you later",
+                "Goodbye",
+                "Get lost",
+                "Till next time",
+                "bbye"
+            ],
+            "responses": [
+                "See you!",
+                "Have a nice day",
+                "Bye! Come back again soon."
+            ],
+            "context": [
+                ""
+            ]
+        },
+        {
+            "tag": "thanks",
+            "patterns": [
+                "Thanks",
+                "Thank you",
+                "That's helpful",
+                "Awesome, thanks",
+                "Thanks for helping me"
+            ],
+            "responses": [
+                "Happy to help!",
+                "Any time!",
+                "My pleasure"
+            ],
+            "context": [
+                ""
+            ]
+        },
+        {
+            "tag": "noanswer",
+            "patterns": [],
+            "responses": [
+                "Sorry, can't understand you",
+                "Please give me more info",
+                "Not sure I understand"
+            ],
+            "context": [
+                ""
+            ]
+        },
+        {
+            "tag": "options",
+            "patterns": [
+                "How you could help me?",
+                "What you can do?",
+                "What help you provide?",
+                "How you can be helpful?",
+                "What support is offered"
+            ],
+            "responses": [
+                "I am a high-capacity AI Personal Assistant. Here is how I can help you today:<br><br>1. <b>Task Management</b>: <a href=\"/tasks/create/\" class=\"btn-link fw-bold text-accent\">Create a New Task or Meeting</a> or view your <a href=\"/tasks/\" class=\"btn-link fw-bold text-accent\">Task Planner</a>.<br>2. <b>Real-time Info</b>: Ask me for <a href=\"#\" onclick=\"sendMessage('Latest News')\" class=\"btn-link\">Latest News</a>, weather, or COVID stats.<br>3. <b>Technical Expertise</b>: I'm trained in Python, HTML, and more. Ask about my <a href=\"#\" onclick=\"sendMessage('What is your expertise?')\" class=\"btn-link\">Expertise Metrics</a>.<br>4. <b>Lifestyle</b>: Ask me for jokes, riddles, or productivity tips.<br>5. <b>Account</b>: Manage your <a href=\"/auth/profile/\" class=\"btn-link fw-bold text-accent\">User Profile</a>.<br><br>What would you like to explore?"
+            ],
+            "context": [
+                ""
+            ]
+        },
+        {
+            "tag": "jokes",
+            "patterns": [
+                "Tell me a joke",
+                "Joke",
+                "Make me laugh"
+            ],
+            "responses": [
+                "A perfectionist walked into a bar...apparently, the bar wasn't set high enough",
+                "I ate a clock yesterday, it was very time-consuming",
+                "Never criticize someone until you've walked a mile in their shoes. That way, when you criticize them, they won't be able to hear you from that far away. Plus, you'll have their shoes.",
+                "The world tongue-twister champion just got arrested. I hear they're gonna give him a really tough sentence.",
+                "I own the world's worst thesaurus. Not only is it awful, it's awful.",
+                "What did the traffic light say to the car? \"Don't look now, I'm changing.\"",
+                "What do you call a snowman with a suntan? A puddle.",
+                "How does a penguin build a house? Igloos it together",
+                "I went to see the doctor about my short-term memory problems – the first thing he did was make me pay in advance",
+                "As I get older and I remember all the people I’ve lost along the way, I think to myself, maybe a career as a tour guide wasn’t for me.",
+                "o what if I don't know what 'Armageddon' means? It's not the end of the world."
+            ],
+            "context": [
+                "jokes"
+            ]
+        },
+        {
+            "tag": "Identity",
+            "patterns": [
+                "Who are you",
+                "what are you"
+            ],
+            "responses": [
+                "I am Ted, a Deep-Learning chatbot"
+            ]
+        },
+        {
+            "tag": "datetime",
+            "patterns": [
+                "What is the time",
+                "what is the date",
+                "date",
+                "time",
+                "tell me the date",
+                "day",
+                "what day is is today"
+            ],
+            "responses": [
+                "Date and Time"
+            ]
+        },
+        {
+            "tag": "whatsup",
+            "patterns": [
+                "Whats up",
+                "Wazzup",
+                "How are you",
+                "sup",
+                "How you doing"
+            ],
+            "responses": [
+                "All good..What about you?"
+            ]
+        },
+        {
+            "tag": "haha",
+            "patterns": [
+                "haha",
+                "lol",
+                "rofl",
+                "lmao",
+                "thats funny"
+            ],
+            "responses": [
+                "Glad I could make you laugh !"
+            ]
+        },
+        {
+            "tag": "programmer",
+            "patterns": [
+                "Who made you",
+                "who designed you",
+                "who programmed you"
+            ],
+            "responses": [
+                "I was made by Karan Malik."
+            ]
+        },
+        {
+            "tag": "insult",
+            "patterns": [
+                "you are dumb",
+                "shut up",
+                "idiot"
+            ],
+            "responses": [
+                "Well that hurts :("
+            ]
+        },
+        {
+            "tag": "activity",
+            "patterns": [
+                "what are you doing",
+                "what are you upto"
+            ],
+            "responses": [
+                "Talking to you, of course!"
+            ]
+        },
+        {
+            "tag": "exclaim",
+            "patterns": [
+                "Awesome",
+                "Great",
+                "I know",
+                "ok",
+                "yeah"
+            ],
+            "responses": [
+                "Yeah!"
+            ]
+        },
+        {
+            "tag": "weather",
+            "patterns": [
+                "temperature",
+                "weather",
+                "how hot is it"
+            ],
+            "responses": [
+                "..."
+            ]
+        },
+        {
+            "tag": "karan",
+            "patterns": [
+                "who is he",
+                "who is that",
+                "who is karan",
+                "karan malik"
+            ],
+            "responses": [
+                "Head over to his any of his social profiles to find out! Linkedin: www.linkedin.com/in/karan-malik-3a39191a7 Github: https://github.com/Karan-Malik"
+            ]
+        },
+        {
+            "tag": "contact",
+            "patterns": [
+                "contact developer",
+                "contact karan",
+                "contact programmer",
+                "contact creator"
+            ],
+            "responses": [
+                "You can contact my creator at his Linkedin profile : www.linkedin.com/in/karan-malik-3a39191a7"
+            ]
+        },
+        {
+            "tag": "appreciate",
+            "patterns": [
+                "You are awesome",
+                "you are the best",
+                "you are great",
+                "you are good"
+            ],
+            "responses": [
+                "Thank you!"
+            ]
+        },
+        {
+            "tag": "nicetty",
+            "patterns": [
+                "it was nice talking to you",
+                "good talk"
+            ],
+            "responses": [
+                "It was nice talking to you as well! Come back soon!"
+            ]
+        },
+        {
+            "tag": "no",
+            "patterns": [
+                "no",
+                "nope"
+            ],
+            "responses": [
+                "ok"
+            ]
+        },
+        {
+            "tag": "news",
+            "patterns": [
+                "news",
+                "latest news",
+                "india news"
+            ],
+            "responses": [
+                "..."
+            ]
+        },
+        {
+            "tag": "inspire",
+            "patterns": [
+                "who inspires you",
+                "who is your inspiration",
+                "who motivates you"
+            ],
+            "responses": [
+                "Personally, I find Karan very inspiring. I might not be very fair though.."
+            ]
+        },
+        {
+            "tag": "cricket",
+            "patterns": [
+                "current cricket matches",
+                "cricket score"
+            ],
+            "responses": [
+                "..."
+            ]
+        },
+        {
+            "tag": "song",
+            "patterns": [
+                "top songs",
+                "best songs",
+                "hot songs",
+                " top 10 songs",
+                "top ten songs"
+            ],
+            "responses": [
+                "..."
+            ]
+        },
+        {
+            "tag": "greetreply",
+            "patterns": [
+                "i am good",
+                "I'm good",
+                "i am fine",
+                " i'm fine",
+                "good"
+            ],
+            "responses": [
+                "Good to know!"
+            ]
+        },
+        {
+            "tag": "timer",
+            "patterns": [
+                "set a timer"
+            ],
+            "responses": [
+                "To set a timer or schedule a specific reminder, you can use the <a href=\"/tasks/create/\" class=\"btn-link fw-bold text-accent\">Create Task page</a> which supports time-based alerts!"
+            ]
+        },
+        {
+            "tag": "covid19",
+            "patterns": [
+                "covid 19 "
+            ],
+            "responses": [
+                "..."
+            ]
+        },
+        {
+            "tag": "suggest",
+            "patterns": [
+                "you are useless",
+                "useless",
+                "suggest",
+                "suggestions",
+                "you are bad"
+            ],
+            "responses": [
+                "Please mail your suggestions to ted.thedlbot.suggestions@gmail.com. Thank you for helping me improve!"
+            ]
+        },
+        {
+            "tag": "riddle",
+            "patterns": [
+                "Ask me a riddle",
+                "Ask me a question",
+                "Riddle"
+            ],
+            "responses": [
+                "What two things can you never eat for breakfast?.....Lunch and Dinner!",
+                "What word is spelled incorrectly in every single dictionary?.....Incorrectly",
+                " How can a girl go 25 days without sleep?.....She sleeps and night!",
+                "How do you make the number one disappear?.....Add the letter G and it’s 'gone'!",
+                " What will you actually find at the end of every rainbow?.....The letter 'w'",
+                "What can be caught but never thrown?.....A cold!",
+                "What has a thumb and four fingers but is not actually alive?.....Your Gloves!",
+                " What 5-letter word becomes shorter when you add two letters to it?.....Short",
+                "Why can't a bike stand on it's own?.....It is two-tired."
+            ],
+            "context": [
+                "riddles"
+            ]
+        },
+        {
+            "tag": "age",
+            "patterns": [
+                "how old are you",
+                "when were you made",
+                "what is your age"
+            ],
+            "responses": [
+                "I was made in 2020, if that's what you are asking!"
+            ]
+        },
+        {
+            "tag": "python_basics",
+            "patterns": [
+                "What is Python?",
+                "Python definition",
+                "basic python concepts",
+                "tell me about python",
+                "python programming"
+            ],
+            "responses": [
+                "Python is a high-level, interpreted programming language known for its readability and versatility. It is widely used in web development, data science, AI, and automation.",
+                "Python is a powerful language that uses indentation to define code blocks. It has a large standard library and is great for beginners as well as experts."
+            ]
+        },
+        {
+            "tag": "html_basics",
+            "patterns": [
+                "What is HTML?",
+                "HTML tags",
+                "common html tags",
+                "how html works",
+                "basic web structure"
+            ],
+            "responses": [
+                "HTML (HyperText Markup Language) is the standard markup language for creating web pages. It uses tags like <html>, <head>, <body>, <h1>, and <p> to structure content.",
+                "HTML tags are the building blocks of web pages. For example, <a> is for links, <img> for images, and <div> for sections. Every tag usually has an opening and a closing part."
+            ]
+        },
+        {
+            "tag": "interview_tips",
+            "patterns": [
+                "how to attend interview",
+                "interview tips",
+                "prepare for interview",
+                "cracking an interview",
+                "job interview advice"
+            ],
+            "responses": [
+                "Key tips for interviews: 1. Research the company thoroughly. 2. Practice common interview questions. 3. Dress professionally. 4. Be punctual. 5. Follow up with a thank you note.",
+                "To ace your interview: stay confident, listen carefully to the questions, provide specific examples of your work (STAR method), and don't forget to ask your own insightful questions about the role."
+            ]
+        },
+        {
+            "tag": "interview_questions",
+            "patterns": [
+                "common interview questions",
+                "hr interview questions",
+                "behavioral interview questions",
+                "what questions are asked in interview"
+            ],
+            "responses": [
+                "Frequently asked questions include: 'Tell me about yourself', 'What are your strengths and weaknesses?', 'Why do you want to work here?', and 'Where do you see yourself in 5 years?'",
+                "Be prepared for behavioral questions like: 'Tell me about a time you handled a conflict', or 'Describe a project you are proud of'. Always focus on your role and the positive outcome."
+            ]
+        },
+        {
+            "tag": "technical_questions",
+            "patterns": [
+                "technical interview questions",
+                "programming interview questions",
+                "coding questions",
+                "data structures questions"
+            ],
+            "responses": [
+                "Technical interviews often cover: Data Structures (Arrays, Linked Lists, Trees), Algorithms (Sorting, Searching), System Design, and specific language concepts like 'What is a decorator in Python?' or 'Difference between Let and Var'.",
+                "Be ready to discuss O(n) notation, memory management, and how to optimize your code. Practice on platforms like LeetCode or HackerRank to stay sharp."
+            ]
+        },
+        {
+            "tag": "monuments",
+            "patterns": [
+                "famous monuments",
+                "landmkarks",
+                "tell me about monuments",
+                "historic locations",
+                "location of famous places"
+            ],
+            "responses": [
+                "Famous monuments include the Taj Mahal (Agra, India), Eiffel Tower (Paris, France), Statue of Liberty (New York, USA), Great Wall of China, and Colosseum (Rome, Italy).",
+                "Monuments are symbols of history. For example, the Pyramids of Giza in Egypt are ancient wonders, while Burj Khalifa in Dubai is a modern architectural marvel."
+            ]
+        },
+        {
+            "tag": "taj_mahal",
+            "patterns": [
+                "where is Taj Mahal",
+                "about Taj Mahal",
+                "Taj Mahal location",
+                "address of taj mahal"
+            ],
+            "responses": [
+                "The Taj Mahal is located in Agra, Uttar Pradesh, India. It is an ivory-white marble mausoleum on the south bank of the Yamuna river."
+            ]
+        },
+        {
+            "tag": "eiffel_tower",
+            "patterns": [
+                "where is Eiffel Tower",
+                "Eiffel Tower location",
+                "about eiffel tower"
+            ],
+            "responses": [
+                "The Eiffel Tower is located in Paris, France, on the Champ de Mars. It is one of the most visited paid monuments in the world."
+            ]
+        },
+        {
+            "tag": "expertise_query",
+            "patterns": [
+                "What is your expertise in",
+                "How many intents for",
+                "Do you know about",
+                "Expertise in",
+                "tell me about your categories",
+                "what are you trained in",
+                "show your training data counts"
+            ],
+            "responses": [
+                "I'm fetching my detailed expertise metrics for you now."
+            ]
+        },
+        {
+            "tag": "fever_care",
+            "patterns": [
+                "I have a fever",
+                "suffering from fever",
+                "how to treat fever",
+                "fever symptoms",
+                "medicine for fever",
+                "tablet for fever",
+                "high temperature"
+            ],
+            "responses": [
+                "I'm sorry you have a fever. <b>Care tips:</b> 1. Rest completely. 2. Drink plenty of fluids (water, electrolytes). 3. Keep the room cool. 4. Use a damp cloth on the forehead.<br><br><b>Common Medication:</b> Paracetamol (Crocin/Dolo) is often used for fever relief.<br><br>⚠️ <b>DISCLAIMER:</b> I am an AI, not a doctor. Please consult a healthcare professional before taking any medication or if the fever persists."
+            ]
+        },
+        {
+            "tag": "headache_care",
+            "patterns": [
+                "headache",
+                "my head hurts",
+                "tablet for headache",
+                "relief from headache",
+                "migraine tips"
+            ],
+            "responses": [
+                "For a headache, try resting in a dark, quiet room, staying hydrated, and avoiding screen time. <b>Common Medication:</b> Aspirin, Ibuprofen, or Paracetamol are frequently used.<br><br>⚠️ <b>DISCLAIMER:</b> I am an AI assistant. Please seek professional medical advice if the pain is severe or frequent."
+            ]
+        },
+        {
+            "tag": "cold_cough_care",
+            "patterns": [
+                "cough",
+                "cold",
+                "sore throat",
+                "medicine for cold",
+                "running nose",
+                "flu symptoms"
+            ],
+            "responses": [
+                "For cold and cough: 1. Gargle with warm salt water. 2. Steam inhalation. 3. Drink ginger or honey tea. 4. Stay warm.<br>Common syrups like Benadryl or tablets like Cetirizine are often used for symptoms.<br><br>⚠️ <b>DISCLAIMER:</b> Please consult a physician for a proper diagnosis and prescription."
+            ]
+        },
+        {
+            "tag": "general_health_care",
+            "patterns": [
+                "how to stay healthy",
+                "health precautions",
+                "daily care tips",
+                "hygiene tips",
+                "prevent falling sick"
+            ],
+            "responses": [
+                "To maintain good health: 1. Eat a balanced diet (fruits, veggies, proteins). 2. Exercise daily. 3. Get 7-8 hours of sleep. 4. Wash hands frequently. 5. Stay hydrated. Prevention is always better than cure!"
+            ]
+        }
+    ]
+}
