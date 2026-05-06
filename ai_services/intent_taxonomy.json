@@ -1,0 +1,128 @@
+{
+    "intent_taxonomy": [
+        {
+            "category": "Education",
+            "count": 120
+        },
+        {
+            "category": "Medical",
+            "count": 120
+        },
+        {
+            "category": "Programming",
+            "count": 100
+        },
+        {
+            "category": "Career Guidance",
+            "count": 80
+        },
+        {
+            "category": "Mental Health",
+            "count": 70
+        },
+        {
+            "category": "Daily Life",
+            "count": 60
+        },
+        {
+            "category": "Finance",
+            "count": 50
+        },
+        {
+            "category": "AI/ML",
+            "count": 50
+        },
+        {
+            "category": "Travel",
+            "count": 40
+        },
+        {
+            "category": "Fitness",
+            "count": 40
+        },
+        {
+            "category": "Cyber Security",
+            "count": 40
+        },
+        {
+            "category": "Startup Guidance",
+            "count": 40
+        },
+        {
+            "category": "Freelancing",
+            "count": 40
+        },
+        {
+            "category": "Student Support",
+            "count": 40
+        },
+        {
+            "category": "Food",
+            "count": 30
+        },
+        {
+            "category": "Government Services",
+            "count": 30
+        },
+        {
+            "category": "Agriculture",
+            "count": 30
+        },
+        {
+            "category": "Interview Preparation",
+            "count": 30
+        },
+        {
+            "category": "Motivation",
+            "count": 30
+        },
+        {
+            "category": "Productivity",
+            "count": 30
+        },
+        {
+            "category": "Research Guidance",
+            "count": 30
+        },
+        {
+            "category": "Legal",
+            "count": 25
+        },
+        {
+            "category": "Sports",
+            "count": 25
+        },
+        {
+            "category": "Blockchain",
+            "count": 25
+        },
+        {
+            "category": "Cloud Computing",
+            "count": 25
+        },
+        {
+            "category": "Entertainment",
+            "count": 25
+        },
+        {
+            "category": "Relationships",
+            "count": 25
+        },
+        {
+            "category": "Shopping",
+            "count": 20
+        },
+        {
+            "category": "IoT",
+            "count": 20
+        },
+        {
+            "category": "Weather",
+            "count": 15
+        },
+        {
+            "category": "Emergency Help",
+            "count": 15
+        }
+    ]
+}

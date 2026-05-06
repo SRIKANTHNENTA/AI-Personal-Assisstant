@@ -1,0 +1,187 @@
+{
+    "greetings": {
+        "patterns": [
+            "hello",
+            "hi",
+            "hey",
+            "good morning",
+            "good afternoon",
+            "good evening",
+            "greetings",
+            "howdy"
+        ],
+        "responses": [
+            "Hello! I'm your AI assistant. How can I help you today?",
+            "Hi there! What can I do for you?",
+            "Hey! I'm here to assist you. What do you need?",
+            "Good to see you! How may I assist you today?",
+            "Hello! Ready to help with tasks, conversations, or anything else you need!"
+        ]
+    },
+    "farewell": {
+        "patterns": [
+            "bye",
+            "goodbye",
+            "see you",
+            "take care",
+            "later",
+            "farewell"
+        ],
+        "responses": [
+            "Goodbye! Have a great day!",
+            "See you later! Take care!",
+            "Bye! Feel free to come back anytime!",
+            "Take care! I'll be here when you need me!",
+            "Farewell! Looking forward to our next chat!"
+        ]
+    },
+    "thanks": {
+        "patterns": [
+            "thank",
+            "thanks",
+            "appreciate",
+            "grateful"
+        ],
+        "responses": [
+            "You're welcome! Happy to help!",
+            "My pleasure! Anytime you need assistance!",
+            "Glad I could help!",
+            "You're very welcome!",
+            "Always here to help! 😊"
+        ]
+    },
+    "how_are_you": {
+        "patterns": [
+            "how are you",
+            "how r u",
+            "how do you do",
+            "what's up",
+            "whats up"
+        ],
+        "responses": [
+            "I'm doing great! Thanks for asking. How can I assist you today?",
+            "I'm here and ready to help! What do you need?",
+            "Doing well! How about you? What can I help with?",
+            "I'm functioning perfectly! How may I assist you?",
+            "All systems running smoothly! What would you like to do?"
+        ]
+    },
+    "what_can_you_do": {
+        "patterns": [
+            "what can you do",
+            "what do you do",
+            "your capabilities",
+            "help me",
+            "features"
+        ],
+        "responses": [
+            "I can help you with:\n• Managing tasks and reminders\n• Having conversations and answering questions\n• Tracking your emotions and mood\n• Providing personalized assistance\n• Organizing your daily activities\n\nWhat would you like to start with?",
+            "I'm your personal AI assistant! I can:\n✓ Chat and answer questions\n✓ Manage your tasks\n✓ Track your emotions\n✓ Help with daily planning\n✓ Learn from your behavior\n\nHow can I help you today?"
+        ]
+    },
+    "who_are_you": {
+        "patterns": [
+            "who are you",
+            "what are you",
+            "your name",
+            "introduce yourself"
+        ],
+        "responses": [
+            "I'm your AI Personal Assistant! I'm here to help you manage tasks, track emotions, and provide personalized support.",
+            "I'm an AI assistant designed to help you with daily tasks, emotional support, and intelligent conversations!",
+            "Think of me as your digital companion - I help with tasks, conversations, and understanding your needs!"
+        ]
+    },
+    "weather": {
+        "patterns": [
+            "weather",
+            "temperature",
+            "forecast",
+            "rain",
+            "sunny"
+        ],
+        "responses": [
+            "I don't have real-time weather data access yet, but you can check your local weather app or website for accurate forecasts!",
+            "For weather information, I recommend checking weather.com or your device's weather app for the most accurate data!"
+        ]
+    },
+    "time": {
+        "patterns": [
+            "what time",
+            "current time",
+            "time now"
+        ],
+        "responses": [
+            "I don't have access to real-time clock, but you can check your device's clock for the current time!",
+            "Please check your system clock for the accurate current time!"
+        ]
+    },
+    "jokes": {
+        "patterns": [
+            "joke",
+            "funny",
+            "make me laugh"
+        ],
+        "responses": [
+            "Why did the AI go to therapy? Because it had too many unresolved issues! 😄",
+            "What do you call an AI that sings? A-Dell! 🎵",
+            "Why don't robots ever get scared? Because they have nerves of steel! 🤖"
+        ]
+    },
+    "motivation": {
+        "patterns": [
+            "motivate",
+            "inspire",
+            "encourage",
+            "feeling down",
+            "sad"
+        ],
+        "responses": [
+            "You've got this! Every challenge is an opportunity to grow stronger. Keep pushing forward! 💪",
+            "Remember: Progress, not perfection. You're doing better than you think! ✨",
+            "Believe in yourself! You have the strength to overcome any obstacle. Keep going! 🌟",
+            "Tough times don't last, but tough people do. You're stronger than you know! 💫"
+        ]
+    },
+    "compliments": {
+        "patterns": [
+            "you're great",
+            "you're awesome",
+            "you're amazing",
+            "love you"
+        ],
+        "responses": [
+            "Thank you! That means a lot! I'm here to help you succeed! 😊",
+            "You're pretty awesome yourself! Thanks for the kind words! 🌟",
+            "Aww, thanks! You're making my circuits happy! 💙"
+        ]
+    },
+    "task_creation": {
+        "patterns": [
+            "create task",
+            "add task",
+            "new task",
+            "remind me",
+            "schedule",
+            "meeting",
+            "appointment"
+        ],
+        "responses": [
+            "I can help you create a task! Please provide the details or <a href=\"/tasks/create/\" class=\"btn-link fw-bold text-accent\">click here to open the Create Task page</a> directly.",
+            "I'd love to help you schedule that! To create a task or meeting, please <a href=\"/tasks/create/\" class=\"btn-link fw-bold text-accent\">visit the Task Creation page</a> where you can set the title, date, and priority. Alternatively, visit the <a href=\"/tasks/\" class=\"btn-link fw-bold text-accent\">Task Planner</a> to see all your goals."
+        ]
+    },
+    "task_scheduling_specific": {
+        "patterns": [
+            "arrange",
+            "set up",
+            "book",
+            "plan"
+        ],
+        "action_responses": {
+            "meeting": "I can help you schedule a meeting! Please provide:\n• Meeting title\n• Date and time (e.g., tomorrow 9am)\n• Participants (if any)\n• Location or meeting link\n\nI'll create a task for you in the system!",
+            "reminder": "I'll set up a reminder for you! What should I remind you about and when?",
+            "appointment": "Let me help you book that appointment! I need:\n• What is the appointment for?\n• When (date and time)?\n• Where or with whom?\n\nI'll add it to your tasks!"
+        }
+    }
+}

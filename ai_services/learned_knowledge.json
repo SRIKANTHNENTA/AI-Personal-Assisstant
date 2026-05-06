@@ -1,0 +1,1352 @@
+{
+  "qa_pairs": [
+    {
+      "question": "hi",
+      "normalized_question": "hi",
+      "answer": "Hello! I'm here to assist you. What do you need?",
+      "source": "template",
+      "confidence": 1.0,
+      "usage_count": 13,
+      "keywords": []
+    },
+    {
+      "question": "how are you",
+      "normalized_question": "how are you",
+      "answer": "I'm functioning perfectly! How may I assist you?",
+      "source": "template",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "are"
+      ]
+    },
+    {
+      "question": "yah same here",
+      "normalized_question": "yah same here",
+      "answer": "I appreciate your understanding. If you encounter any other issues or have any questions, feel free to let me know. I'm here to help!",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "yah",
+        "same",
+        "here"
+      ]
+    },
+    {
+      "question": "thinava",
+      "normalized_question": "thinava",
+      "answer": "Hello! How may I assist you today?",
+      "source": "template",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "thinava"
+      ]
+    },
+    {
+      "question": "pichi fellow",
+      "normalized_question": "pichi fellow",
+      "answer": "Hello! How may I assist you today?",
+      "source": "template",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "pichi",
+        "fellow"
+      ]
+    },
+    {
+      "question": "which type of qsns you can answers",
+      "normalized_question": "which type of qsns you can answers",
+      "answer": "Hello !  What can I do for you?",
+      "source": "template",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "type",
+        "qsns",
+        "can",
+        "answers"
+      ]
+    },
+    {
+      "question": "tell me a joke",
+      "normalized_question": "tell me a joke",
+      "answer": "Why don't robots ever get scared? Because they have nerves of steel! ðŸ¤–",
+      "source": "template",
+      "confidence": 0.8,
+      "usage_count": 2,
+      "keywords": [
+        "tell",
+        "joke"
+      ]
+    },
+    {
+      "question": "what is python",
+      "normalized_question": "what is python",
+      "answer": "Python is a popular high-level programming language known for its simplicity and readability. It is widely used in various fields such as web development, data science, artificial intelligence, automation, and more. Python is versatile and has a large standard library, making it a great choice for both beginners and experienced programmers.",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 5,
+      "keywords": [
+        "python"
+      ]
+    },
+    {
+      "question": "html",
+      "normalized_question": "html",
+      "answer": "HTML (HyperText Markup Language) is the standard markup language used to create and design web pages. It provides the structure and content of a webpage by using various elements and tags, such as headings, paragraphs, images, links, and more. HTML is essential for building websites and is often used in combination with CSS (Cascading Style Sheets) and JavaScript to create dynamic and visually appealing web pages.",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "html"
+      ]
+    },
+    {
+      "question": "djnago",
+      "normalized_question": "djnago",
+      "answer": "It seems like you might be referring to Django, which is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Django follows the model-template-views (MTV) architectural pattern and provides a powerful set of tools and libraries for building web applications. It's known for its scalability, security features, and extensive documentation. Django is a popular choice for developing robust web applications.",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "djnago"
+      ]
+    },
+    {
+      "question": "do you know emotions",
+      "normalized_question": "do you know emotions",
+      "answer": "Yes, I understand emotions! Emotions are complex psychological states that can be triggered by various factors such as thoughts, events, or interactions. They play a crucial role in how we experience and navigate the world around us. If you'd like to talk more about emotions or how you're feeling, feel free to share!",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "know",
+        "emotions"
+      ]
+    },
+    {
+      "question": "what isa sad",
+      "normalized_question": "what isa sad",
+      "answer": "You've got this! Every challenge is an opportunity to grow stronger. Keep pushing forward! ðŸ’ª",
+      "source": "template",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "isa",
+        "sad"
+      ]
+    },
+    {
+      "question": "can you create a reminder for me",
+      "normalized_question": "can you create a reminder for me",
+      "answer": "I'd love to help you schedule that! To create a task or meeting, please visit the Tasks page where you can:\nâœ“ Set the title and description\nâœ“ Choose the date and time\nâœ“ Set priority level\nâœ“ Add reminders\n\nOr tell me more details and I'll guide you!",
+      "source": "template",
+      "confidence": 0.8,
+      "usage_count": 2,
+      "keywords": [
+        "can",
+        "create",
+        "reminder"
+      ]
+    },
+    {
+      "question": "can you create task",
+      "normalized_question": "can you create task",
+      "answer": "I'd love to help you schedule that! To create a task or meeting, please <a href=\"/tasks/create/\" class=\"btn-link fw-bold text-accent\">visit the Task Creation page</a> where you can set the title, date, and priority. Alternatively, visit the <a href=\"/tasks/\" class=\"btn-link fw-bold text-accent\">Task Planner</a> to see all your goals.",
+      "source": "template",
+      "confidence": 0.8,
+      "usage_count": 2,
+      "keywords": [
+        "can",
+        "create",
+        "task"
+      ]
+    },
+    {
+      "question": "create reminders and alerts",
+      "normalized_question": "create reminders and alerts",
+      "answer": "I'd love to help you schedule that! To create a task or meeting, please <a href=\"/tasks/create/\" class=\"btn-link fw-bold text-accent\">visit the Task Creation page</a> where you can set the title, date, and priority. Alternatively, visit the <a href=\"/tasks/\" class=\"btn-link fw-bold text-accent\">Task Planner</a> to see all your goals.",
+      "source": "template",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "create",
+        "reminders",
+        "alerts"
+      ]
+    },
+    {
+      "question": "i have fever",
+      "normalized_question": "i have fever",
+      "answer": "I'm sorry to hear that you're not feeling well. It's important to take care of yourself when you have a fever. Make sure to rest, stay hydrated, and consider reaching out to a healthcare professional for advice. If you need any assistance or information, feel free to ask. Take care!",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 3,
+      "keywords": [
+        "have",
+        "fever"
+      ]
+    },
+    {
+      "question": "suggest me a tablet",
+      "normalized_question": "suggest me a tablet",
+      "answer": "I recommend consulting with a healthcare professional or pharmacist to get the best advice on which tablet would be most suitable for your specific needs and symptoms. They can provide personalized recommendations based on your health condition and medical history. If you need any help finding a healthcare provider or have any other questions, feel free to ask.",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "suggest",
+        "tablet"
+      ]
+    },
+    {
+      "question": "when is your birthday",
+      "normalized_question": "when is your birthday",
+      "answer": "I don't have a birthday since I am an artificial intelligence. But I'm here to assist you any time you need help!",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "birthday"
+      ]
+    },
+    {
+      "question": "what i told you earlier",
+      "normalized_question": "what i told you earlier",
+      "answer": "You mentioned that you like me. Thank you for the kind words! How can I assist you further today?",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "told",
+        "earlier"
+      ]
+    },
+    {
+      "question": "can you arrange a meeting at 5pm",
+      "normalized_question": "can you arrange a meeting at 5pm",
+      "answer": "I'd love to help you schedule that! To create a task or meeting, please <a href=\"/tasks/create/\" class=\"btn-link fw-bold text-accent\">visit the Task Creation page</a> where you can set the title, date, and priority. Alternatively, visit the <a href=\"/tasks/\" class=\"btn-link fw-bold text-accent\">Task Planner</a> to see all your goals.",
+      "source": "template",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "can",
+        "arrange",
+        "meeting",
+        "5pm"
+      ]
+    },
+    {
+      "question": "how many fields you can answer",
+      "normalized_question": "how many fields you can answer",
+      "answer": "I can answer questions related to a variety of topics, including but not limited to productivity, organization, emotional support, general knowledge, recommendations, and more. Feel free to ask me anything you need help with!",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 3,
+      "keywords": [
+        "many",
+        "fields",
+        "can",
+        "answer"
+      ]
+    },
+    {
+      "question": "general knowledge qsns?",
+      "normalized_question": "general knowledge qsns",
+      "answer": "Yes, feel free to ask me any general knowledge questions you have! I'll do my best to provide you with accurate and helpful answers. What would you like to know?",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "general",
+        "knowledge",
+        "qsns"
+      ]
+    },
+    {
+      "question": "tajmahal located in?",
+      "normalized_question": "tajmahal located in",
+      "answer": "The Taj Mahal is located in Agra, India. It is one of the most famous and iconic landmarks in the world, known for its stunning architecture and significance as a symbol of love.",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 2,
+      "keywords": [
+        "tajmahal",
+        "located"
+      ]
+    },
+    {
+      "question": "what is Django",
+      "normalized_question": "what is django",
+      "answer": "Django is a high-level web framework for Python that encourages rapid development and clean, pragmatic design. It follows the model-template-views (MTV) architectural pattern and emphasizes reusability and pluggability of components. Django is widely used for building web applications and has a strong community and extensive documentation to support developers.",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "django"
+      ]
+    },
+    {
+      "question": "do you help in mediacal suggetions?",
+      "normalized_question": "do you help in mediacal suggetions",
+      "answer": "I can provide general information and suggestions related to health and wellness, but please keep in mind that I am not a substitute for professional medical advice. If you have specific medical concerns or questions, it's always best to consult with a qualified healthcare professional for personalized guidance. Your health and well-being are important!",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "help",
+        "mediacal",
+        "suggetions"
+      ]
+    },
+    {
+      "question": "give any suggestion for agriculture",
+      "normalized_question": "give any suggestion for agriculture",
+      "answer": "One suggestion for agriculture is to consider implementing sustainable farming practices to promote environmental conservation and long-term productivity. This can include practices such as crop rotation, using organic fertilizers, conserving water through drip irrigation, and promoting biodiversity on the farm. Additionally, staying informed about the latest advancements in agricultural technology and techniques can help improve efficiency and yield. If you have any specific questions or areas of interest in agriculture, feel free to share!",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "give",
+        "any",
+        "suggestion",
+        "agriculture"
+      ]
+    },
+    {
+      "question": "my birthday dec 17",
+      "normalized_question": "my birthday dec 17",
+      "answer": "Happy early birthday, Anand! It's wonderful to know that your birthday is on December 17th. Do you have any special plans or ways you like to celebrate your birthday? If there's anything specific you'd like assistance with or if you'd like to share more about your birthday, feel free to let me know!",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "birthday",
+        "dec"
+      ]
+    },
+    {
+      "question": "can you answer project relkated qsns",
+      "normalized_question": "can you answer project relkated qsns",
+      "answer": "Of course, Anand! I'm here to help with any project-related questions you may have. Feel free to provide more details or specific questions about your project, and I'll do my best to assist you. Just let me know how I can support you!",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "can",
+        "answer",
+        "project",
+        "relkated",
+        "qsns"
+      ]
+    },
+    {
+      "question": "can you explain your functionality and abililities",
+      "normalized_question": "can you explain your functionality and abililities",
+      "answer": "I am an AI personal assistant designed to help you manage tasks, understand your emotions, and provide personalized support. My main functions include offering guidance, providing information, assisting with organization, and offering emotional support. I can help you with a wide range of topics such as productivity, health and wellness, time management, and more. If you have any specific questions or need assistance, feel free to ask, and I'll do my best to support you!",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "can",
+        "explain",
+        "functionality",
+        "abililities"
+      ]
+    },
+    {
+      "question": "okay well suggest me a better topic for my mini project",
+      "normalized_question": "okay well suggest me a better topic for my mini project",
+      "answer": "Sure! How about exploring the impact of technology on mental health? You could focus on how technology usage, social media, or screen time affects mental well-being. This topic is relevant, has a lot of research available, and can offer valuable insights for your mini project. Let me know if you'd like more suggestions or help with this topic!",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "okay",
+        "well",
+        "suggest",
+        "better",
+        "topic",
+        "mini",
+        "project"
+      ]
+    },
+    {
+      "question": "well i need on the bases of an AI",
+      "normalized_question": "well i need on the bases of an ai",
+      "answer": "How about exploring the ethical considerations and societal implications of artificial intelligence (AI)? You could delve into topics like bias in AI algorithms, job displacement due to automation, privacy concerns with AI-powered technologies, or the role of AI in healthcare and decision-making. This topic offers a lot of depth and room for exploration in the context of AI. Let me know if you need more guidance or have specific aspects you'd like to focus on!",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "well",
+        "need",
+        "bases"
+      ]
+    },
+    {
+      "question": "i need the topics which is related to AI and also real time example",
+      "normalized_question": "i need the topics which is related to ai and also real time example",
+      "answer": "Hello! I'm here to assist you. What do you need?",
+      "source": "template",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "need",
+        "topics",
+        "related",
+        "also",
+        "real",
+        "time",
+        "example"
+      ]
+    },
+    {
+      "question": "what is AI",
+      "normalized_question": "what is ai",
+      "answer": "AI, or Artificial Intelligence, refers to the simulation of human intelligence processes by machines, especially computer systems. These processes include learning (the acquisition of information and rules for using the information), reasoning (using the rules to reach approximate or definite conclusions), and self-correction. AI encompasses many subfields, including machine learning, natural language processing, computer vision, robotics, and more. It aims to create systems that can perform tasks that typically require human intelligence, such as visual perception, speech recognition, decision-making, and language translation.",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": []
+    },
+    {
+      "question": "do you know academic projects?",
+      "normalized_question": "do you know academic projects",
+      "answer": "Yes, I am familiar with academic projects. Academic projects are tasks or research endeavors undertaken by students or researchers as part of their academic studies. These projects can range from theoretical research to practical applications and often involve exploring new concepts, developing innovative solutions, or conducting experiments to address specific research questions or problems. Academic projects can be interdisciplinary, collaborative, and may require a combination of theoretical knowledge and practical skills to complete successfully. Let me know if you need more specific information or guidance on academic projects.",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "know",
+        "academic",
+        "projects"
+      ]
+    },
+    {
+      "question": "can you give AI based academic titles",
+      "normalized_question": "can you give ai based academic titles",
+      "answer": "Certainly! Here are some AI-based academic project title suggestions across different subfields of Artificial Intelligence:\n\n1. \"Enhancing Healthcare Diagnostics Through Machine Learning Algorithms\"\n2. \"Optimizing Supply Chain Management Using Reinforcement Learning\"\n3. \"Sentiment Analysis in Social Media: A Deep Learning Approach\"\n4. \"Robotic Control Systems for Autonomous Navigation in Unknown Environments\"\n5. \"Predictive Maintenance in Industrial IoT: An AI-driven Approach\"\n6. \"Explainable AI for Decision Support Systems in Finance\"\n7. \"Multi-Modal Fusion for Human Activity Recognition\"\n8. \"Natural Language Generation for Personalized Chatbots\"\n9. \"Deep Reinforcement Learning for Traffic Signal Optimization\"\n10. \"Ethical Considerations in AI: Bias Detection and Mitigation Strategies\"\n\nThese titles cover a range of AI applications and research areas, providing a starting point for developing detailed academic projects in the field of Artificial Intelligence. Let me know if you need further assistance or more specific suggestions.",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "can",
+        "give",
+        "based",
+        "academic",
+        "titles"
+      ]
+    },
+    {
+      "question": "give them in a list",
+      "normalized_question": "give them in a list",
+      "answer": "Here is a list of AI-based academic project title suggestions:\n\n1. \"Enhancing Healthcare Diagnostics Through Machine Learning Algorithms\"\n2. \"Optimizing Supply Chain Management Using Reinforcement Learning\"\n3. \"Sentiment Analysis in Social Media: A Deep Learning Approach\"\n4. \"Robotic Control Systems for Autonomous Navigation in Unknown Environments\"\n5. \"Predictive Maintenance in Industrial IoT: An AI-driven Approach\"\n6. \"Explainable AI for Decision Support Systems in Finance\"\n7. \"Multi-Modal Fusion for Human Activity Recognition\"\n8. \"Natural Language Generation for Personalized Chatbots\"\n9. \"Deep Reinforcement Learning for Traffic Signal Optimization\"\n10. \"Ethical Considerations in AI: Bias Detection and Mitigation Strategies\"\n\nThese titles cover a range of AI applications and research areas, providing a starting point for developing detailed academic projects in the field of Artificial Intelligence. Let me know if you need further assistance or more specific suggestions.",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "give",
+        "them",
+        "list"
+      ]
+    },
+    {
+      "question": "whats your name",
+      "normalized_question": "whats your name",
+      "answer": "Think of me as your digital companion - I help with tasks, conversations, and understanding your needs!",
+      "source": "template",
+      "confidence": 0.8,
+      "usage_count": 3,
+      "keywords": [
+        "whats",
+        "your",
+        "name"
+      ]
+    },
+    {
+      "question": "ok",
+      "normalized_question": "ok",
+      "answer": "If you need any assistance or have any questions, feel free to ask. I'm here to help!",
+      "source": "openai",
+      "confidence": 0.9,
+      "usage_count": 2,
+      "keywords": []
+    },
+    {
+      "question": "can you answer any technical related questions?",
+      "normalized_question": "can you answer any technical related questions",
+      "answer": "Of course, Anand! I'm here to help with any technical questions you have. What specific technical topic or question would you like assistance with today?",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 2,
+      "keywords": [
+        "can",
+        "answer",
+        "any",
+        "technical",
+        "related",
+        "questions"
+      ]
+    },
+    {
+      "question": "what is html",
+      "normalized_question": "what is html",
+      "answer": "HTML stands for HyperText Markup Language. It is the standard markup language used to create and design web pages. HTML provides the structure and layout of a webpage by using a system of tags and attributes to define elements such as headings, paragraphs, links, images, and more. Browsers use HTML to interpret and display web content to users on the internet.",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 4,
+      "keywords": [
+        "html"
+      ]
+    },
+    {
+      "question": "that is bone facture?",
+      "normalized_question": "that is bone facture",
+      "answer": "It seems like there might be a typo in your question. Did you mean \"What is a bone fracture?\"",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "that",
+        "bone",
+        "facture"
+      ]
+    },
+    {
+      "question": "yes",
+      "normalized_question": "yes",
+      "answer": "A bone fracture is a medical condition where there is a break or crack in a bone. Fractures can occur due to trauma, such as a fall or impact, or due to underlying medical conditions like osteoporosis. There are different types of fractures, including:\n\n1. **Closed Fracture**: The bone breaks but does not penetrate the skin.\n  \n2. **Open Fracture**: The broken bone pierces through the skin, increasing the risk of infection.\n\n3. **Complete Fracture**: The bone is broken into two or more pieces.\n\n4. **Incomplete Fracture**: The bone is partially cracked but not completely broken.\n\nTreatment for a bone fracture typically involves immobilizing the affected area with a cast, brace, or splint to allow the bone to heal properly. In some cases, surgery may be required to realign the bone fragments and stabilize the fracture. It's essential to follow the treatment plan provided by a healthcare professional to promote proper healing and reduce the risk of complications.",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "yes"
+      ]
+    },
+    {
+      "question": "do you suggest any songs?",
+      "normalized_question": "do you suggest any songs",
+      "answer": "I can provide song recommendations based on your mood or preferences. What genre or mood are you in the mood for today?",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "suggest",
+        "any",
+        "songs"
+      ]
+    },
+    {
+      "question": "can you play any telugu song?",
+      "normalized_question": "can you play any telugu song",
+      "answer": "I'm unable to play songs directly. However, I can assist you with information about Telugu songs, artists, or even provide recommendations. Is there a specific Telugu song or artist you would like to know more about? Let me know how I can assist you further.",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "can",
+        "play",
+        "any",
+        "telugu",
+        "song"
+      ]
+    },
+    {
+      "question": "famous trending songs in youtube",
+      "normalized_question": "famous trending songs in youtube",
+      "answer": "As trends in music change rapidly, the popularity of songs on YouTube can vary. However, here are a few suggestions based on recent trends:\n\n1. **\"Butter\" by BTS**: This song has been trending globally with a catchy tune and vibrant music video.\n\n2. **\"Good 4 U\" by Olivia Rodrigo**: A popular track that has gained significant attention with its relatable lyrics and energetic vibe.\n\n3. **\"Stay\" by The Kid LAROI and Justin Bieber**: A collaboration that has been climbing the charts and receiving a lot of views on YouTube.\n\n4. **\"Industry Baby\" by Lil Nas X ft. Jack Harlow**: Known for its bold visuals and upbeat rhythm, this song has been trending on various platforms.\n\nRemember, the popularity of songs can change quickly, so it's always a good idea to check the YouTube charts or trending sections for the most current information on popular music.",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "famous",
+        "trending",
+        "songs",
+        "youtube"
+      ]
+    },
+    {
+      "question": "ok nice thank you",
+      "normalized_question": "ok nice thank you",
+      "answer": "You're very welcome!",
+      "source": "template",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "nice",
+        "thank"
+      ]
+    },
+    {
+      "question": "can you give me some interview tips",
+      "normalized_question": "can you give me some interview tips",
+      "answer": "Certainly! Here are some interview tips to help you prepare and perform well:\n\n1. Research the company: Learn about the company's products, services, culture, and recent news. This knowledge will showcase your interest and preparation during the interview.\n\n2. Practice common interview questions: Prepare responses to common interview questions such as \"Tell me about yourself,\" \"What are your strengths and weaknesses,\" and \"Why do you want to work here?\"\n\n3. Showcase your skills and experience: Be ready to discuss your relevant skills, experiences, and accomplishments. Provide specific examples to demonstrate your capabilities.\n\n4. Dress appropriately: Choose professional attire that is suitable for the company culture. Dressing well can boost your confidence during the interview.\n\n5. Arrive early: Plan to arrive at the interview location at least 10-15 minutes early. Punctuality demonstrates your reliability and respect for the interviewer's time.\n\n6. Practice good body language: Maintain eye contact, offer a firm handshake, and sit up straight during the interview. Positive body language can convey confidence and professionalism.\n\n7. Ask questions: Prepare thoughtful questions to ask the interviewer about the role, company culture, or team dynamics. This shows your interest and engagement in the opportunity.\n\n8. Follow up: Send a thank-you email to the interviewer after the interview to express your gratitude for the opportunity and reiterate your interest in the position.\n\nBy following these tips, you can better prepare for your interview and increase your chances of success. Good luck!",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "can",
+        "give",
+        "some",
+        "interview",
+        "tips"
+      ]
+    },
+    {
+      "question": "can you suggest any tablets?",
+      "normalized_question": "can you suggest any tablets",
+      "answer": "I'm not a healthcare professional, but if you're looking for over-the-counter options to help manage your fever or symptoms, you may consider common medications like acetaminophen (Tylenol) or ibuprofen (Advil or Motrin). However, it's crucial to consult with a healthcare provider or pharmacist before taking any new medication to ensure it's safe and appropriate for your specific situation. If you have any more specific preferences or details, feel free to share so I can assist you better.",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "can",
+        "suggest",
+        "any",
+        "tablets"
+      ]
+    },
+    {
+      "question": "who is the top business man in the world?",
+      "normalized_question": "who is the top business man in the world",
+      "answer": "As of the latest information available, Elon Musk is currently one of the top business magnates in the world. He is the CEO of multiple companies, including Tesla, SpaceX, Neuralink, and The Boring Company. Elon Musk is known for his innovative approach to technology, sustainability, and space exploration, which has propelled him to the forefront of the business world. Please note that rankings of top business individuals can vary based on different criteria and sources.",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "who",
+        "top",
+        "business",
+        "man",
+        "world"
+      ]
+    },
+    {
+      "question": "remember my name Sri update memory",
+      "normalized_question": "remember my name sri update memory",
+      "answer": "Got it, Sri! I'll remember your name for future interactions. If there's anything specific you'd like me to assist you with or if you have any preferences, feel free to let me know!",
+      "source": "openai",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "remember",
+        "name",
+        "sri",
+        "update",
+        "memory"
+      ]
+    },
+    {
+      "question": "hi hello",
+      "normalized_question": "hi hello",
+      "answer": "Hello !  I'm here to assist you. What do you need?",
+      "source": "template",
+      "confidence": 0.8,
+      "usage_count": 1,
+      "keywords": [
+        "hello"
+      ]
+    }
+  ],
+  "topics": {
+    "are": {
+      "count": 1,
+      "related_questions": [
+        "how are you"
+      ]
+    },
+    "yah": {
+      "count": 1,
+      "related_questions": [
+        "yah same here"
+      ]
+    },
+    "same": {
+      "count": 1,
+      "related_questions": [
+        "yah same here"
+      ]
+    },
+    "here": {
+      "count": 1,
+      "related_questions": [
+        "yah same here"
+      ]
+    },
+    "thinava": {
+      "count": 1,
+      "related_questions": [
+        "thinava"
+      ]
+    },
+    "pichi": {
+      "count": 1,
+      "related_questions": [
+        "pichi fellow"
+      ]
+    },
+    "fellow": {
+      "count": 1,
+      "related_questions": [
+        "pichi fellow"
+      ]
+    },
+    "type": {
+      "count": 1,
+      "related_questions": [
+        "which type of qsns you can answers"
+      ]
+    },
+    "qsns": {
+      "count": 3,
+      "related_questions": [
+        "which type of qsns you can answers",
+        "general knowledge qsns?",
+        "can you answer project relkated qsns"
+      ]
+    },
+    "can": {
+      "count": 13,
+      "related_questions": [
+        "which type of qsns you can answers",
+        "can you create a reminder for me",
+        "can you create task",
+        "can you arrange a meeting at 5pm",
+        "how many fields you can answer",
+        "can you answer project relkated qsns",
+        "can you explain your functionality and abililities",
+        "can you give AI based academic titles",
+        "can you answer any technical related questions?",
+        "can you play any telugu song?",
+        "can you give me some interview tips",
+        "can you suggest any tablets?",
+        "what is python can you explain the programming languages"
+      ]
+    },
+    "answers": {
+      "count": 1,
+      "related_questions": [
+        "which type of qsns you can answers"
+      ]
+    },
+    "tell": {
+      "count": 1,
+      "related_questions": [
+        "tell me a joke"
+      ]
+    },
+    "joke": {
+      "count": 1,
+      "related_questions": [
+        "tell me a joke"
+      ]
+    },
+    "python": {
+      "count": 2,
+      "related_questions": [
+        "what is python",
+        "what is python can you explain the programming languages"
+      ]
+    },
+    "html": {
+      "count": 2,
+      "related_questions": [
+        "html",
+        "what is html"
+      ]
+    },
+    "djnago": {
+      "count": 1,
+      "related_questions": [
+        "djnago"
+      ]
+    },
+    "know": {
+      "count": 2,
+      "related_questions": [
+        "do you know emotions",
+        "do you know academic projects?"
+      ]
+    },
+    "emotions": {
+      "count": 1,
+      "related_questions": [
+        "do you know emotions"
+      ]
+    },
+    "isa": {
+      "count": 1,
+      "related_questions": [
+        "what isa sad"
+      ]
+    },
+    "sad": {
+      "count": 1,
+      "related_questions": [
+        "what isa sad"
+      ]
+    },
+    "create": {
+      "count": 3,
+      "related_questions": [
+        "can you create a reminder for me",
+        "can you create task",
+        "create reminders and alerts"
+      ]
+    },
+    "reminder": {
+      "count": 1,
+      "related_questions": [
+        "can you create a reminder for me"
+      ]
+    },
+    "task": {
+      "count": 1,
+      "related_questions": [
+        "can you create task"
+      ]
+    },
+    "reminders": {
+      "count": 1,
+      "related_questions": [
+        "create reminders and alerts"
+      ]
+    },
+    "alerts": {
+      "count": 1,
+      "related_questions": [
+        "create reminders and alerts"
+      ]
+    },
+    "have": {
+      "count": 1,
+      "related_questions": [
+        "i have fever"
+      ]
+    },
+    "fever": {
+      "count": 1,
+      "related_questions": [
+        "i have fever"
+      ]
+    },
+    "suggest": {
+      "count": 4,
+      "related_questions": [
+        "suggest me a tablet",
+        "okay well suggest me a better topic for my mini project",
+        "do you suggest any songs?",
+        "can you suggest any tablets?"
+      ]
+    },
+    "tablet": {
+      "count": 1,
+      "related_questions": [
+        "suggest me a tablet"
+      ]
+    },
+    "birthday": {
+      "count": 2,
+      "related_questions": [
+        "when is your birthday",
+        "my birthday dec 17"
+      ]
+    },
+    "told": {
+      "count": 1,
+      "related_questions": [
+        "what i told you earlier"
+      ]
+    },
+    "earlier": {
+      "count": 1,
+      "related_questions": [
+        "what i told you earlier"
+      ]
+    },
+    "arrange": {
+      "count": 1,
+      "related_questions": [
+        "can you arrange a meeting at 5pm"
+      ]
+    },
+    "meeting": {
+      "count": 1,
+      "related_questions": [
+        "can you arrange a meeting at 5pm"
+      ]
+    },
+    "5pm": {
+      "count": 1,
+      "related_questions": [
+        "can you arrange a meeting at 5pm"
+      ]
+    },
+    "many": {
+      "count": 1,
+      "related_questions": [
+        "how many fields you can answer"
+      ]
+    },
+    "fields": {
+      "count": 1,
+      "related_questions": [
+        "how many fields you can answer"
+      ]
+    },
+    "answer": {
+      "count": 3,
+      "related_questions": [
+        "how many fields you can answer",
+        "can you answer project relkated qsns",
+        "can you answer any technical related questions?"
+      ]
+    },
+    "general": {
+      "count": 1,
+      "related_questions": [
+        "general knowledge qsns?"
+      ]
+    },
+    "knowledge": {
+      "count": 1,
+      "related_questions": [
+        "general knowledge qsns?"
+      ]
+    },
+    "tajmahal": {
+      "count": 1,
+      "related_questions": [
+        "tajmahal located in?"
+      ]
+    },
+    "located": {
+      "count": 1,
+      "related_questions": [
+        "tajmahal located in?"
+      ]
+    },
+    "django": {
+      "count": 1,
+      "related_questions": [
+        "what is Django"
+      ]
+    },
+    "help": {
+      "count": 1,
+      "related_questions": [
+        "do you help in mediacal suggetions?"
+      ]
+    },
+    "mediacal": {
+      "count": 1,
+      "related_questions": [
+        "do you help in mediacal suggetions?"
+      ]
+    },
+    "suggetions": {
+      "count": 1,
+      "related_questions": [
+        "do you help in mediacal suggetions?"
+      ]
+    },
+    "give": {
+      "count": 4,
+      "related_questions": [
+        "give any suggestion for agriculture",
+        "can you give AI based academic titles",
+        "give them in a list",
+        "can you give me some interview tips"
+      ]
+    },
+    "any": {
+      "count": 5,
+      "related_questions": [
+        "give any suggestion for agriculture",
+        "can you answer any technical related questions?",
+        "do you suggest any songs?",
+        "can you play any telugu song?",
+        "can you suggest any tablets?"
+      ]
+    },
+    "suggestion": {
+      "count": 1,
+      "related_questions": [
+        "give any suggestion for agriculture"
+      ]
+    },
+    "agriculture": {
+      "count": 1,
+      "related_questions": [
+        "give any suggestion for agriculture"
+      ]
+    },
+    "dec": {
+      "count": 1,
+      "related_questions": [
+        "my birthday dec 17"
+      ]
+    },
+    "project": {
+      "count": 2,
+      "related_questions": [
+        "can you answer project relkated qsns",
+        "okay well suggest me a better topic for my mini project"
+      ]
+    },
+    "relkated": {
+      "count": 1,
+      "related_questions": [
+        "can you answer project relkated qsns"
+      ]
+    },
+    "explain": {
+      "count": 2,
+      "related_questions": [
+        "can you explain your functionality and abililities",
+        "what is python can you explain the programming languages"
+      ]
+    },
+    "functionality": {
+      "count": 1,
+      "related_questions": [
+        "can you explain your functionality and abililities"
+      ]
+    },
+    "abililities": {
+      "count": 1,
+      "related_questions": [
+        "can you explain your functionality and abililities"
+      ]
+    },
+    "okay": {
+      "count": 1,
+      "related_questions": [
+        "okay well suggest me a better topic for my mini project"
+      ]
+    },
+    "well": {
+      "count": 2,
+      "related_questions": [
+        "okay well suggest me a better topic for my mini project",
+        "well i need on the bases of an AI"
+      ]
+    },
+    "better": {
+      "count": 1,
+      "related_questions": [
+        "okay well suggest me a better topic for my mini project"
+      ]
+    },
+    "topic": {
+      "count": 1,
+      "related_questions": [
+        "okay well suggest me a better topic for my mini project"
+      ]
+    },
+    "mini": {
+      "count": 1,
+      "related_questions": [
+        "okay well suggest me a better topic for my mini project"
+      ]
+    },
+    "need": {
+      "count": 2,
+      "related_questions": [
+        "well i need on the bases of an AI",
+        "i need the topics which is related to AI and also real time example"
+      ]
+    },
+    "bases": {
+      "count": 1,
+      "related_questions": [
+        "well i need on the bases of an AI"
+      ]
+    },
+    "topics": {
+      "count": 1,
+      "related_questions": [
+        "i need the topics which is related to AI and also real time example"
+      ]
+    },
+    "related": {
+      "count": 2,
+      "related_questions": [
+        "i need the topics which is related to AI and also real time example",
+        "can you answer any technical related questions?"
+      ]
+    },
+    "also": {
+      "count": 1,
+      "related_questions": [
+        "i need the topics which is related to AI and also real time example"
+      ]
+    },
+    "real": {
+      "count": 1,
+      "related_questions": [
+        "i need the topics which is related to AI and also real time example"
+      ]
+    },
+    "time": {
+      "count": 1,
+      "related_questions": [
+        "i need the topics which is related to AI and also real time example"
+      ]
+    },
+    "example": {
+      "count": 1,
+      "related_questions": [
+        "i need the topics which is related to AI and also real time example"
+      ]
+    },
+    "academic": {
+      "count": 2,
+      "related_questions": [
+        "do you know academic projects?",
+        "can you give AI based academic titles"
+      ]
+    },
+    "projects": {
+      "count": 1,
+      "related_questions": [
+        "do you know academic projects?"
+      ]
+    },
+    "based": {
+      "count": 1,
+      "related_questions": [
+        "can you give AI based academic titles"
+      ]
+    },
+    "titles": {
+      "count": 1,
+      "related_questions": [
+        "can you give AI based academic titles"
+      ]
+    },
+    "them": {
+      "count": 1,
+      "related_questions": [
+        "give them in a list"
+      ]
+    },
+    "list": {
+      "count": 1,
+      "related_questions": [
+        "give them in a list"
+      ]
+    },
+    "whats": {
+      "count": 1,
+      "related_questions": [
+        "whats your name"
+      ]
+    },
+    "your": {
+      "count": 1,
+      "related_questions": [
+        "whats your name"
+      ]
+    },
+    "name": {
+      "count": 2,
+      "related_questions": [
+        "whats your name",
+        "remember my name Sri update memory"
+      ]
+    },
+    "technical": {
+      "count": 1,
+      "related_questions": [
+        "can you answer any technical related questions?"
+      ]
+    },
+    "questions": {
+      "count": 1,
+      "related_questions": [
+        "can you answer any technical related questions?"
+      ]
+    },
+    "that": {
+      "count": 1,
+      "related_questions": [
+        "that is bone facture?"
+      ]
+    },
+    "bone": {
+      "count": 1,
+      "related_questions": [
+        "that is bone facture?"
+      ]
+    },
+    "facture": {
+      "count": 1,
+      "related_questions": [
+        "that is bone facture?"
+      ]
+    },
+    "yes": {
+      "count": 1,
+      "related_questions": [
+        "yes"
+      ]
+    },
+    "songs": {
+      "count": 2,
+      "related_questions": [
+        "do you suggest any songs?",
+        "famous trending songs in youtube"
+      ]
+    },
+    "play": {
+      "count": 1,
+      "related_questions": [
+        "can you play any telugu song?"
+      ]
+    },
+    "telugu": {
+      "count": 1,
+      "related_questions": [
+        "can you play any telugu song?"
+      ]
+    },
+    "song": {
+      "count": 1,
+      "related_questions": [
+        "can you play any telugu song?"
+      ]
+    },
+    "famous": {
+      "count": 1,
+      "related_questions": [
+        "famous trending songs in youtube"
+      ]
+    },
+    "trending": {
+      "count": 1,
+      "related_questions": [
+        "famous trending songs in youtube"
+      ]
+    },
+    "youtube": {
+      "count": 1,
+      "related_questions": [
+        "famous trending songs in youtube"
+      ]
+    },
+    "nice": {
+      "count": 1,
+      "related_questions": [
+        "ok nice thank you"
+      ]
+    },
+    "thank": {
+      "count": 1,
+      "related_questions": [
+        "ok nice thank you"
+      ]
+    },
+    "some": {
+      "count": 1,
+      "related_questions": [
+        "can you give me some interview tips"
+      ]
+    },
+    "interview": {
+      "count": 1,
+      "related_questions": [
+        "can you give me some interview tips"
+      ]
+    },
+    "tips": {
+      "count": 1,
+      "related_questions": [
+        "can you give me some interview tips"
+      ]
+    },
+    "tablets": {
+      "count": 1,
+      "related_questions": [
+        "can you suggest any tablets?"
+      ]
+    },
+    "who": {
+      "count": 1,
+      "related_questions": [
+        "who is the top business man in the world?"
+      ]
+    },
+    "top": {
+      "count": 1,
+      "related_questions": [
+        "who is the top business man in the world?"
+      ]
+    },
+    "business": {
+      "count": 1,
+      "related_questions": [
+        "who is the top business man in the world?"
+      ]
+    },
+    "man": {
+      "count": 1,
+      "related_questions": [
+        "who is the top business man in the world?"
+      ]
+    },
+    "world": {
+      "count": 1,
+      "related_questions": [
+        "who is the top business man in the world?"
+      ]
+    },
+    "remember": {
+      "count": 1,
+      "related_questions": [
+        "remember my name Sri update memory"
+      ]
+    },
+    "sri": {
+      "count": 1,
+      "related_questions": [
+        "remember my name Sri update memory"
+      ]
+    },
+    "update": {
+      "count": 1,
+      "related_questions": [
+        "remember my name Sri update memory"
+      ]
+    },
+    "memory": {
+      "count": 1,
+      "related_questions": [
+        "remember my name Sri update memory"
+      ]
+    },
+    "hello": {
+      "count": 1,
+      "related_questions": [
+        "hi hello"
+      ]
+    },
+    "programming": {
+      "count": 1,
+      "related_questions": [
+        "what is python can you explain the programming languages"
+      ]
+    },
+    "languages": {
+      "count": 1,
+      "related_questions": [
+        "what is python can you explain the programming languages"
+      ]
+    }
+  },
+  "user_patterns": []
+}

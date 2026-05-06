@@ -1,0 +1,371 @@
+{
+  "qa_pairs": [
+    {
+      "question": "What is a Python decorator?",
+      "answer": "A decorator in Python is a function that takes another function and extends its behavior without explicitly modifying it. They are often used for logging, access control, or instrumentation.",
+      "keywords": [
+        "python",
+        "decorator"
+      ],
+      "normalized_question": "what is a python decorator",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What is PEP 8?",
+      "answer": "PEP 8 is the Style Guide for Python Code. It provides guidelines and best practices on how to write Python code to ensure readability and consistency.",
+      "keywords": [
+        "python",
+        "pep8",
+        "style"
+      ],
+      "normalized_question": "what is pep 8",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What is a virtual environment in Python?",
+      "answer": "A virtual environment is a self-contained directory tree that contains a Python installation for a particular version of Python, plus a number of additional packages. It allows you to manage dependencies for different projects separately.",
+      "keywords": [
+        "python",
+        "virtualenv",
+        "venv"
+      ],
+      "normalized_question": "what is a virtual environment in python",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What is a REST API?",
+      "answer": "A REST (Representational State Transfer) API is an architectural style for an application program interface (API) that uses HTTP requests to GET, PUT, POST and DELETE data. It relies on a stateless, client-server, cacheable communications protocol.",
+      "keywords": [
+        "api",
+        "rest",
+        "web"
+      ],
+      "normalized_question": "what is a rest api",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What is the difference between GET and POST?",
+      "answer": "GET requests data from a specified resource, and parameters are sent in the URL. POST submits data to be processed to a specified resource, and parameters are sent in the request body, making it more secure for sensitive data.",
+      "keywords": [
+        "http",
+        "get",
+        "post",
+        "web"
+      ],
+      "normalized_question": "what is the difference between get and post",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What is responsive web design?",
+      "answer": "Responsive web design is an approach that makes web pages render well on a variety of devices and window or screen sizes. It uses flexible grids, layouts, and CSS media queries.",
+      "keywords": [
+        "responsive",
+        "css",
+        "web"
+      ],
+      "normalized_question": "what is responsive web design",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "How can I prevent a cold?",
+      "answer": "To prevent a cold: 1. Wash your hands frequently. 2. Avoid touching your face. 3. Clean frequently touched surfaces. 4. Maintain a healthy lifestyle with good sleep and nutrition. *Disclaimer: This is general advice, not medical diagnosis.*",
+      "keywords": [
+        "cold",
+        "prevention",
+        "health"
+      ],
+      "normalized_question": "how can i prevent a cold",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What are the signs of dehydration?",
+      "answer": "Signs of dehydration include extreme thirst, less frequent urination, dark-colored urine, fatigue, dizziness, and confusion. *Note: Seek medical attention if symptoms are severe.*",
+      "keywords": [
+        "dehydration",
+        "water",
+        "health"
+      ],
+      "normalized_question": "what are the signs of dehydration",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "Benefit of physical exercise?",
+      "answer": "Regular physical exercise can improve cardiovascular health, strengthen muscles and bones, help manage weight, and reduce the risk of chronic diseases like type 2 diabetes and some cancers. It also boosts mental health.",
+      "keywords": [
+        "exercise",
+        "health",
+        "fitness"
+      ],
+      "normalized_question": "benefit of physical exercise",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What is the largest planet in our solar system?",
+      "answer": "Jupiter is the largest planet in our solar system. It is a gas giant with a mass more than two and a half times that of all the other planets in the solar system combined.",
+      "keywords": [
+        "jupiter",
+        "planets",
+        "space"
+      ],
+      "normalized_question": "what is the largest planet in our solar system",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "Who was Albert Einstein?",
+      "answer": "Albert Einstein was a theoretical physicist who developed the theory of relativity, one of the two pillars of modern physics. He is best known for his mass-energy equivalence formula E = mc².",
+      "keywords": [
+        "einstein",
+        "physics",
+        "science"
+      ],
+      "normalized_question": "who was albert einstein",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What happened in the French Revolution?",
+      "answer": "The French Revolution (1789–1799) was a period of far-reaching social and political upheaval in France and its colonies of which overthrew the monarchy and established a republic.",
+      "keywords": [
+        "french",
+        "revolution",
+        "history"
+      ],
+      "normalized_question": "what happened in the french revolution",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What is Java?",
+      "answer": "Java is a class-based, object-oriented programming language designed to have as few implementation dependencies as possible. It follows the 'write once, run anywhere' (WORA) principle.",
+      "keywords": [
+        "java",
+        "programming"
+      ],
+      "normalized_question": "what is java",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What is a pointer in C++?",
+      "answer": "A pointer is a variable that stores the memory address of another variable. They are powerful features in C++ that allow for direct memory manipulation.",
+      "keywords": [
+        "cpp",
+        "pointer",
+        "memory"
+      ],
+      "normalized_question": "what is a pointer in c++",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What is an Operating System?",
+      "answer": "An Operating System (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs. Examples include Windows, macOS, and Linux.",
+      "keywords": [
+        "os",
+        "software",
+        "computer"
+      ],
+      "normalized_question": "what is an operating system",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What is CPU?",
+      "answer": "The CPU (Central Processing Unit) is the primary component of a computer that acts as its 'control center.' It performs most of the processing inside a computer.",
+      "keywords": [
+        "cpu",
+        "hardware",
+        "computer"
+      ],
+      "normalized_question": "what is cpu",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What is the pH scale?",
+      "answer": "The pH scale measures how acidic or basic a substance is, ranging from 0 to 14. 7 is neutral, below 7 is acidic, and above 7 is basic.",
+      "keywords": [
+        "ph",
+        "chemistry",
+        "acid",
+        "base"
+      ],
+      "normalized_question": "what is the ph scale",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What is water made of?",
+      "answer": "Water is a chemical compound consisting of two hydrogen atoms and one oxygen atom (H2O).",
+      "keywords": [
+        "water",
+        "h2o",
+        "chemistry"
+      ],
+      "normalized_question": "what is water made of",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What is the speed of light?",
+      "answer": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 300,000 km/s). It is a fundamental constant in physics.",
+      "keywords": [
+        "light",
+        "speed",
+        "physics",
+        "space"
+      ],
+      "normalized_question": "what is the speed of light",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What is the Milky Way?",
+      "answer": "The Milky Way is the galaxy that contains our solar system. It is a barred spiral galaxy with hundreds of billions of stars.",
+      "keywords": [
+        "milky",
+        "way",
+        "galaxy",
+        "space"
+      ],
+      "normalized_question": "what is the milky way",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What is the Pythagorean theorem?",
+      "answer": "The Pythagorean theorem states that in a right-angled triangle, the square of the hypotenuse (the side opposite the right angle) is equal to the sum of the squares of the other two sides: a² + b² = c².",
+      "keywords": [
+        "math",
+        "geometry",
+        "triangle"
+      ],
+      "normalized_question": "what is the pythagorean theorem",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What is a prime number?",
+      "answer": "A prime number is a natural number greater than 1 that is not a product of two smaller natural numbers. Examples include 2, 3, 5, 7, 11, and 13.",
+      "keywords": [
+        "math",
+        "numbers",
+        "prime"
+      ],
+      "normalized_question": "what is a prime number",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "When was World War II?",
+      "answer": "World War II was a global conflict that lasted from 1939 to 1945, involving the vast majority of the world's countries and all the great powers.",
+      "keywords": [
+        "war",
+        "history",
+        "ww2"
+      ],
+      "normalized_question": "when was world war ii",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What was the Industrial Revolution?",
+      "answer": "The Industrial Revolution was the transition to new manufacturing processes in Europe and the United States, in the period from about 1760 to sometime between 1820 and 1840.",
+      "keywords": [
+        "industrial",
+        "revolution",
+        "history"
+      ],
+      "normalized_question": "what was the industrial revolution",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What is cloud computing?",
+      "answer": "Cloud computing is the on-demand availability of computer system resources, especially data storage and computing power, without direct active management by the user.",
+      "keywords": [
+        "cloud",
+        "computing",
+        "tech"
+      ],
+      "normalized_question": "what is cloud computing",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "What is a database index?",
+      "answer": "A database index is a data structure that improves the speed of data retrieval operations on a database table at the cost of additional writes and storage space.",
+      "keywords": [
+        "database",
+        "index",
+        "sql"
+      ],
+      "normalized_question": "what is a database index",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "How to handle a nosebleed?",
+      "answer": "For a nosebleed: 1. Sit upright and lean forward. 2. Pinch your nose firmly for 10-15 minutes. 3. Avoid blowing your nose for several hours. *Disclaimer: See a doctor if bleeding is severe.*",
+      "keywords": [
+        "nosebleed",
+        "first",
+        "aid",
+        "medical"
+      ],
+      "normalized_question": "how to handle a nosebleed",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    },
+    {
+      "question": "Importance of sleep?",
+      "answer": "Good sleep is essential for physical health, brain function, and emotional well-being. It helps repair heart and blood vessels, and supports growth and development.",
+      "keywords": [
+        "sleep",
+        "health",
+        "wellness"
+      ],
+      "normalized_question": "importance of sleep",
+      "source": "static",
+      "confidence": 1.0,
+      "usage_count": 0
+    }
+  ]
+}

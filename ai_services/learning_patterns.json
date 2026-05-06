@@ -1,0 +1,107 @@
+{
+    "personal_info_patterns": {
+        "name": {
+            "patterns": [],
+            "response_templates": []
+        },
+        "gender": {
+            "patterns": [
+                "i'm a {gender}",
+                "i am {gender}",
+                "i'm male",
+                "i'm female",
+                "i am male",
+                "i am female"
+            ],
+            "response_templates": [
+                "Got it! I've noted that. How can I assist you today?",
+                "Thanks for sharing! What would you like help with?"
+            ]
+        },
+        "birthday": {
+            "patterns": [
+                "my birthday is {date}",
+                "i was born on {date}",
+                "my birth date is {date}"
+            ],
+            "response_templates": [
+                "I've saved your birthday! I'll make sure to wish you on {date}!",
+                "Noted! I'll remember your birthday on {date}."
+            ]
+        },
+        "location": {
+            "patterns": [
+                "i live in {location}",
+                "i'm from {location}",
+                "i am from {location}",
+                "my city is {location}"
+            ],
+            "response_templates": [
+                "Great! I've noted that you're from {location}.",
+                "Thanks for sharing! I'll remember you're in {location}."
+            ]
+        },
+        "occupation": {
+            "patterns": [
+                "i work as {job}",
+                "i'm a {job}",
+                "i am a {job}",
+                "my job is {job}",
+                "i work at {company}"
+            ],
+            "response_templates": [
+                "Interesting! I've saved that you work as {job}.",
+                "Got it! I'll remember your profession."
+            ]
+        }
+    },
+    "contextual_responses": {
+        "greeting_with_name": [
+            "Hello {name}! How are you today?",
+            "Hi {name}! What can I help you with?",
+            "Hey {name}! Great to see you again!",
+            "Good to see you, {name}! How can I assist?"
+        ],
+        "greeting_with_time": [
+            "Good morning! How can I help you start your day?",
+            "Good afternoon! What can I do for you?",
+            "Good evening! How was your day?"
+        ]
+    },
+    "learning_responses": {
+        "understood": [
+            "I understand! I've noted that down.",
+            "Got it! I'll remember that.",
+            "Thanks for sharing! I've saved that information.",
+            "Noted! I'll keep that in mind for our future conversations."
+        ],
+        "confirmation": [
+            "Just to confirm, you said {info}. Is that correct?",
+            "Let me make sure I got that right: {info}?"
+        ]
+    },
+    "activity_tracking": {
+        "patterns": [
+            "i like {activity}",
+            "i love {activity}",
+            "i enjoy {activity}",
+            "my hobby is {activity}",
+            "i usually {activity}"
+        ],
+        "response_templates": [
+            "That's great! I've noted that you enjoy {activity}.",
+            "Interesting! I'll remember that you like {activity}."
+        ]
+    },
+    "preferences": {
+        "patterns": [
+            "i prefer {preference}",
+            "i like {item} better",
+            "my favorite {category} is {item}"
+        ],
+        "response_templates": [
+            "Noted! I'll remember your preference for {preference}.",
+            "Got it! I've saved that you prefer {preference}."
+        ]
+    }
+}
