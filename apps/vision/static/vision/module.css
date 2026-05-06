@@ -1,0 +1,42 @@
+.scan-frame {
+    position: relative;
+    border-radius: 22px;
+    overflow: hidden;
+}
+
+.scan-frame::after {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(0, 255, 156, 0.24);
+    border-radius: 16px;
+    animation: scanOverlay 2.4s linear infinite;
+}
+
+@keyframes scanOverlay {
+    0% { opacity: 0.4; transform: scale(0.995); }
+    50% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0.4; transform: scale(0.995); }
+}
+
+.vision-points-list {
+    margin: 0;
+    padding-left: 1.1rem;
+}
+
+.vision-points-list li {
+    margin-bottom: 0.45rem;
+    color: rgba(230, 255, 245, 0.92);
+    font-size: 0.85rem;
+}
+
+.vision-preview-text {
+    max-height: 180px;
+    overflow: auto;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(0, 255, 156, 0.16);
+    border-radius: 12px;
+    padding: 0.65rem 0.75rem;
+    white-space: pre-wrap;
+    line-height: 1.45;
+}

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Notes - AI Personal Assistant{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'notes/module.css' %}">
+<style>
+    .notes-grid { min-height: calc(100vh - 160px); }
+    .notes-search { background: rgba(255,255,255,.04); }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-4 notes-grid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-gradient-premium mb-1">Notes + Memory</h2>
+            <p class="text-secondary mb-0">AI summaries, semantic search, and linked memory cards.</p>
+        </div>
+        <span class="badge border border-accent text-accent">Semantic Search</span>
+    </div>
+
+    <form class="glass-panel p-3 mb-4 notes-search" method="get">
+        <div class="input-group input-group-lg">
+            <span class="input-group-text bg-transparent border-0 text-accent"><i class="fas fa-search"></i></span>
+            <input type="search" class="form-control form-control-premium" name="q" value="{{ query }}" placeholder="Search memories, notes, and conversations...">
+            <button class="btn btn-premium" type="submit">Search</button>
+        </div>
+    </form>
+
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="glass-panel p-4 h-100">
+                <h6 class="text-uppercase text-secondary small fw-bold mb-3">Memory timeline</h6>
+                <div class="d-grid gap-3">
+                    {% for card in note_cards %}
+                    <a href="{% url 'chat_companion:conversation_thread' card.conversation_id %}" class="sticky-note p-3 text-decoration-none text-reset d-block">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div class="fw-bold">{{ card.title }}</div>
+                            <span class="note-chip text-accent small">{{ card.tag }}</span>
+                        </div>
+                        <p class="text-secondary small mb-2">{{ card.preview }}</p>
+                        <div class="text-secondary small">{{ card.timestamp }}</div>
+                    </a>
+                    {% empty %}
+                    <div class="text-secondary small">No memory cards available yet.</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="glass-panel p-4 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="text-uppercase text-secondary small fw-bold mb-0">Recent chat-derived notes</h6>
+                    <span class="text-secondary small">{{ semantic_results|length }} results</span>
+                </div>
+                <div class="row g-3">
+                    {% for message in semantic_results %}
+                    <div class="col-md-6">
+                        <a href="{% url 'chat_companion:conversation_thread' message.conversation_id %}" class="glass-card sticky-note p-3 h-100 text-decoration-none text-reset d-block">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge border border-accent text-accent">{{ message.message_type|title }}</span>
+                                <span class="text-secondary small">{{ message.timestamp|date:'M d, H:i' }}</span>
+                            </div>
+                            <div class="fw-bold mb-2">{{ message.conversation.title|default:'Memory stream' }}</div>
+                            <div class="text-secondary small">{{ message.content|truncatechars:170 }}</div>
+                        </a>
+                    </div>
+                    {% empty %}
+                    <div class="col-12">
+                        <div class="text-secondary small p-3">No matching notes found. Try a broader search.</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

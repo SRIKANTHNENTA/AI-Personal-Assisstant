@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Vision - AI Personal Assistant{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'vision/module.css' %}">
+<style>
+    .vision-grid { min-height: calc(100vh - 160px); }
+    .vision-dropzone { border: 1px dashed rgba(0,255,156,.24); background: rgba(255,255,255,.035); }
+    .vision-pill { border-radius: 999px; padding: .5rem .75rem; background: rgba(0,255,156,.08); }
+    .vision-select { background: rgba(255,255,255,.05); border: 1px solid rgba(0,255,156,.2); color: #d8ffe8; }
+    .vision-select:focus { border-color: rgba(0,255,156,.45); box-shadow: none; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-4 vision-grid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-gradient-premium mb-1">Scan & Vision</h2>
+            <p class="text-secondary mb-0">Upload, camera capture, object detection, OCR, and face/emotion cues.</p>
+        </div>
+        <span class="badge border border-accent text-accent">Camera ready</span>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <div class="glass-panel p-4 h-100">
+                <div class="scan-frame glass-card p-4 mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="text-secondary text-uppercase small fw-bold mb-0">Live feed panel</h6>
+                        <span class="text-accent small fw-bold">Neon scan active</span>
+                    </div>
+                    <div class="ratio ratio-16x9 glass-panel vision-dropzone d-flex align-items-center justify-content-center">
+                        <div class="text-center">
+                            <i class="fas fa-camera-retro fa-3x text-accent mb-3"></i>
+                            <div class="fw-bold">Live camera feed placeholder</div>
+                            <div class="text-secondary small">Ready for WebRTC or mobile capture integration.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <form method="post" enctype="multipart/form-data" class="glass-card p-3">
+                    {% csrf_token %}
+                    <div class="mb-2">
+                        <label for="explanation_level" class="form-label text-secondary small mb-1">Explain Level</label>
+                        <select class="form-select form-select-sm vision-select" id="explanation_level" name="explanation_level">
+                            <option value="basic" {% if explanation_level == 'basic' %}selected{% endif %}>Basic</option>
+                            <option value="detailed" {% if explanation_level == 'detailed' %}selected{% endif %}>Detailed</option>
+                            <option value="technical" {% if explanation_level == 'technical' %}selected{% endif %}>Technical</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <input type="file" class="form-control form-control-premium" name="upload_file" accept="image/*,.txt,.md,.csv,.json,.pdf,.docx,.rtf" required>
+                        <button class="btn btn-premium" type="submit">Analyze File</button>
+                    </div>
+                    <div class="text-secondary small mt-2">Supports image captioning, OCR, and document summarization.</div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="glass-panel p-4 h-100">
+                <h6 class="text-uppercase text-secondary small fw-bold mb-3">Detection summary</h6>
+                {% if scan_message %}
+                <div class="alert alert-warning py-2 px-3 small">{{ scan_message }}</div>
+                {% endif %}
+                {% if scan_result %}
+                <div class="glass-card p-3 mb-3">
+                    <div class="small text-secondary">File</div>
+                    <div class="fw-bold">{{ scan_result.file_name }}</div>
+                    <div class="text-secondary small mt-2">{{ scan_result.caption }}</div>
+                </div>
+                {% for item in scan_result.profile %}
+                <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary border-opacity-10">
+                    <span class="text-secondary small">{{ item.label }}</span>
+                    <span class="text-accent small fw-bold">{{ item.value }}</span>
+                </div>
+                {% endfor %}
+
+                <div class="glass-card p-3 mt-3">
+                    <div class="small text-secondary mb-1">AI Summary</div>
+                    <div class="small">{{ scan_result.summary }}</div>
+                </div>
+
+                {% if scan_result.xai %}
+                <div class="glass-card p-3 mt-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div class="small text-secondary text-uppercase fw-bold">Explainable AI</div>
+                        <span class="text-accent small fw-bold">{{ scan_result.xai.mode }}</span>
+                    </div>
+
+                    {% if explanation_level == 'basic' %}
+                    <div class="small mb-2"><span class="text-secondary">Statement:</span> {{ scan_result.xai.statement }}</div>
+                    <div class="small text-secondary mb-1">Top Evidence</div>
+                    <ul class="vision-points-list mb-2">
+                        {% for item in scan_result.xai.evidence|slice:":2" %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="small"><span class="text-secondary">Confidence:</span> <span class="text-accent fw-bold">{{ scan_result.xai.confidence }}</span></div>
+
+                    {% elif explanation_level == 'technical' %}
+                    <div class="small mb-2"><span class="text-secondary">Statement:</span> {{ scan_result.xai.statement }}</div>
+                    <div class="small mb-2"><span class="text-secondary">Justification:</span> {{ scan_result.xai.justification }}</div>
+                    <div class="small text-secondary mb-1">Rules</div>
+                    <ul class="vision-points-list mb-2">
+                        {% for rule in scan_result.xai.rules %}
+                        <li>{{ rule }}</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="small text-secondary mb-1">Evidence</div>
+                    <ul class="vision-points-list mb-2">
+                        {% for item in scan_result.xai.evidence %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% if scan_result.xai.technical_notes %}
+                    <div class="small text-secondary mb-1">Technical Notes</div>
+                    <ul class="vision-points-list mb-2">
+                        {% for note in scan_result.xai.technical_notes %}
+                        <li>{{ note }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <div class="small"><span class="text-secondary">Confidence:</span> <span class="text-accent fw-bold">{{ scan_result.xai.confidence }}</span></div>
+
+                    {% else %}
+                    <div class="small mb-2"><span class="text-secondary">Statement:</span> {{ scan_result.xai.statement }}</div>
+                    <div class="small mb-2"><span class="text-secondary">Justification:</span> {{ scan_result.xai.justification }}</div>
+                    <div class="small text-secondary mb-1">Rules</div>
+                    <ul class="vision-points-list mb-2">
+                        {% for rule in scan_result.xai.rules %}
+                        <li>{{ rule }}</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="small text-secondary mb-1">Evidence</div>
+                    <ul class="vision-points-list mb-2">
+                        {% for item in scan_result.xai.evidence %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="small"><span class="text-secondary">Confidence:</span> <span class="text-accent fw-bold">{{ scan_result.xai.confidence }}</span></div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                {% if scan_result.key_points %}
+                <div class="glass-card p-3 mt-3">
+                    <div class="small text-secondary mb-2">Key points</div>
+                    <ul class="vision-points-list mb-0">
+                        {% for point in scan_result.key_points %}
+                        <li>{{ point }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if scan_result.ocr_preview %}
+                <div class="glass-card p-3 mt-3">
+                    <div class="small text-secondary mb-2">Extracted text preview</div>
+                    <div class="vision-preview-text small">{{ scan_result.ocr_preview|linebreaksbr }}</div>
+                </div>
+                {% endif %}
+                {% else %}
+                <div class="text-secondary small mb-3">Upload an image or document to activate AI scanning and summarization.</div>
+                {% endif %}
+
+                <div class="glass-card p-3 mt-4">
+                    <div class="small text-secondary mb-2">Face analysis</div>
+                    <div class="h4 mb-0 text-gradient-premium">{{ recent_emotion.emotion|default:'idle'|title }}</div>
+                </div>
+
+                <div class="mt-4 d-grid gap-2">
+                    {% for state in camera_states %}
+                    <div class="vision-pill text-secondary small">{{ state }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
