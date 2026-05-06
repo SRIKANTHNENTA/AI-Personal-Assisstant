@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Planner - AI Personal Assistant{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'planner/module.css' %}">
+<style>
+    .planner-grid { min-height: calc(100vh - 160px); }
+    .planner-card { min-height: 100%; }
+    .planner-task { border-left: 3px solid var(--accent-color); }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-4 planner-grid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-gradient-premium mb-1">Smart Planner</h2>
+            <p class="text-secondary mb-0">RL scheduling, energy-aware suggestions, and timeline planning.</p>
+        </div>
+        <span class="badge border border-accent text-accent">Adaptive</span>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="glass-panel p-4 planner-card">
+                <h6 class="text-uppercase text-secondary small fw-bold mb-3">Priority queue</h6>
+                <div class="d-grid gap-3">
+                    {% for task in tasks|slice:":6" %}
+                    <div class="glass-card p-3 planner-task planner-task-glow">
+                        <div class="d-flex justify-content-between align-items-start gap-3">
+                            <div>
+                                <div class="fw-bold">{{ task.title }}</div>
+                                <div class="text-secondary small">{{ task.category|title }} • {{ task.due_date|default:'No due date' }}</div>
+                            </div>
+                            <span class="badge border border-accent text-accent">{{ task.priority|upper }}</span>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="text-secondary small">No tasks yet. Add one from the dashboard.</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="glass-panel p-4 planner-card">
+                <h6 class="text-uppercase text-secondary small fw-bold mb-3">Daily timeline</h6>
+                <div class="d-grid gap-3">
+                    {% for hour in planner_hours %}
+                    <div class="planner-time-block d-flex justify-content-between align-items-center p-3">
+                        <div>
+                            <div class="fw-bold">{{ hour }}:00</div>
+                            <div class="text-secondary small">Suggested focus block</div>
+                        </div>
+                        <span class="text-accent small fw-bold">{{ recommendations.top_prediction.activity|default:'Ready' }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="glass-panel p-4 planner-card">
+                <h6 class="text-uppercase text-secondary small fw-bold mb-3">Energy state</h6>
+                <div class="glass-card p-3 mb-3">
+                    <div class="small text-secondary">Focus</div>
+                    <div class="h4 mb-0 text-gradient-premium">{{ cognitive_state.focus_level|default:0.0|floatformat:2 }}</div>
+                </div>
+                <div class="glass-card p-3 mb-3">
+                    <div class="small text-secondary">Energy</div>
+                    <div class="h4 mb-0 text-gradient-premium">{{ cognitive_state.energy_level|default:0.0|floatformat:2 }}</div>
+                </div>
+                <div class="glass-card p-3">
+                    <div class="small text-secondary">Stress</div>
+                    <div class="h4 mb-0 text-gradient-premium">{{ cognitive_state.stress_level|default:0.0|floatformat:2 }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,487 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Voice Assistant - AI Personal Assistant{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'voice_assistant/module.css' %}">
+<style>
+    .voice-layout { min-height: calc(100vh - 160px); }
+    .voice-panel { min-height: 100%; }
+    .voice-center { display: grid; place-items: center; min-height: 26rem; }
+    .voice-mic-button { width: 72px; height: 72px; border-radius: 50%; border: 1px solid rgba(0,255,156,.25); }
+    .voice-pill { border: 1px solid rgba(0,255,156,.16); background: rgba(255,255,255,.04); border-radius: 999px; padding: .55rem .85rem; }
+    .voice-pill[role="button"] { cursor: pointer; transition: transform .18s ease, border-color .18s ease; }
+    .voice-pill[role="button"]:hover { transform: translateY(-1px); border-color: rgba(0,255,156,.42); }
+    .voice-status { min-height: 1.2rem; }
+    .voice-result { white-space: pre-wrap; line-height: 1.5; }
+    .voice-mic-button.recording { box-shadow: 0 0 0 8px rgba(255, 68, 68, 0.14); border-color: rgba(255, 68, 68, .6); }
+    .voice-controls-grid { display: grid; grid-template-columns: 1fr auto; gap: .75rem; align-items: center; }
+    .voice-lang-select { background: rgba(255,255,255,.05); border: 1px solid rgba(0,255,156,.2); color: #d8ffe8; }
+    .voice-lang-select:focus { border-color: rgba(0,255,156,.45); box-shadow: none; }
+    .voice-tts-controls { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .voice-tts-controls .btn { min-width: 2.6rem; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-4 voice-layout">
+    <div class="row g-4 align-items-stretch">
+        <div class="col-lg-3">
+            <div class="glass-panel p-4 voice-panel">
+                <h6 class="text-uppercase text-secondary small fw-bold mb-3">Voice controls</h6>
+                <div class="d-flex flex-column gap-2">
+                    {% for shortcut in voice_shortcuts %}
+                    <div class="voice-pill text-secondary small js-voice-shortcut" role="button" tabindex="0" data-command="{{ shortcut }}">{{ shortcut }}</div>
+                    {% endfor %}
+                </div>
+                <div class="mt-4">
+                    {% for item in voice_feedback %}
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary border-opacity-10">
+                        <span class="text-secondary small">{{ item.label }}</span>
+                        <span class="text-accent small fw-bold">{{ item.value }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="glass-panel p-4 voice-panel position-relative overflow-hidden">
+                <div class="d-flex justify-content-between align-items-start mb-4">
+                    <div>
+                        <h2 class="fw-bold text-gradient-premium mb-1">Voice Assistant</h2>
+                        <p class="text-secondary mb-0">Mic input, transcription, emotion detection, and TTS-ready feedback.</p>
+                    </div>
+                    <span class="badge border border-accent text-accent">LIVE</span>
+                </div>
+
+                <div class="voice-center ai-core-shell">
+                    <div class="ai-core-ring">
+                        <div class="ai-core-pulse"></div>
+                    </div>
+                    <button class="btn btn-premium voice-mic-button position-absolute" type="button" aria-label="Start voice input">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+
+                <div class="voice-status text-secondary small mb-2" id="voice-status">Tap the mic and speak your command.</div>
+
+                <div class="glass-card p-3 mb-3">
+                    <div class="voice-controls-grid">
+                        <div>
+                            <label class="form-label text-secondary small mb-1" for="voice-language-select">Response language</label>
+                            <select id="voice-language-select" class="form-select form-select-sm voice-lang-select">
+                                {% for code, name in supported_languages.items %}
+                                <option value="{{ code }}" {% if code == default_language %}selected{% endif %}>{{ name }} ({{ code }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-check form-switch mt-3">
+                            <input class="form-check-input" type="checkbox" id="voice-auto-detect" checked>
+                            <label class="form-check-label text-secondary small" for="voice-auto-detect">Auto detect</label>
+                        </div>
+                    </div>
+                    <div class="text-secondary small mt-2">Detected input language: <span id="voice-detected-language" class="text-accent">Unknown</span></div>
+                </div>
+
+                <div class="glass-card p-3 mt-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-secondary small text-uppercase fw-bold">Realtime transcript</span>
+                        <span class="typing-cursor">|</span>
+                    </div>
+                    <div class="text-gradient-premium fw-bold voice-result" id="voice-transcript">Listening for your next command...</div>
+                </div>
+
+                <div class="glass-card p-3 mt-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-secondary small text-uppercase fw-bold">Assistant response</span>
+                        <i class="fas fa-robot text-accent"></i>
+                    </div>
+                    <div class="text-light voice-result" id="voice-response">Your response will appear here after transcription.</div>
+                    <div class="voice-tts-controls mt-3">
+                        <button class="btn btn-outline-light btn-sm" id="tts-play" type="button" title="Play"><i class="fas fa-play"></i></button>
+                        <button class="btn btn-outline-light btn-sm" id="tts-pause" type="button" title="Pause"><i class="fas fa-pause"></i></button>
+                        <button class="btn btn-outline-light btn-sm" id="tts-resume" type="button" title="Resume"><i class="fas fa-circle-play"></i></button>
+                        <button class="btn btn-outline-light btn-sm" id="tts-stop" type="button" title="Stop"><i class="fas fa-stop"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="glass-panel p-4 voice-panel">
+                <h6 class="text-uppercase text-secondary small fw-bold mb-3">Emotion readout</h6>
+                <div class="glass-card p-3 mb-3">
+                    <div class="small text-secondary">Detected mood</div>
+                    <div class="h4 mb-0 text-gradient-premium">{{ recent_emotion.emotion|default:'steady'|title }}</div>
+                </div>
+                <div class="glass-card p-3">
+                    <div class="small text-secondary mb-2">Voice flow</div>
+                    <div class="voice-spectrum">
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(() => {
+    const micBtn = document.querySelector('.voice-mic-button');
+    const micIcon = micBtn ? micBtn.querySelector('i') : null;
+    const transcriptEl = document.getElementById('voice-transcript');
+    const responseEl = document.getElementById('voice-response');
+    const statusEl = document.getElementById('voice-status');
+    const shortcutEls = document.querySelectorAll('.js-voice-shortcut');
+    const languageSelect = document.getElementById('voice-language-select');
+    const autoDetectToggle = document.getElementById('voice-auto-detect');
+    const detectedLanguageEl = document.getElementById('voice-detected-language');
+    const ttsPlayBtn = document.getElementById('tts-play');
+    const ttsPauseBtn = document.getElementById('tts-pause');
+    const ttsResumeBtn = document.getElementById('tts-resume');
+    const ttsStopBtn = document.getElementById('tts-stop');
+
+    if (!micBtn || !transcriptEl || !responseEl || !statusEl || !languageSelect || !autoDetectToggle) {
+        return;
+    }
+
+    let mediaRecorder = null;
+    let isRecording = false;
+    let audioChunks = [];
+    let speechRecognition = null;
+    let speechFinalText = '';
+    let speechInterimText = '';
+    let recordedMimeType = 'audio/webm';
+    let currentResponseText = '';
+
+    const languageToBcp47 = {
+        'en': 'en-US',
+        'es': 'es-ES',
+        'fr': 'fr-FR',
+        'de': 'de-DE',
+        'hi': 'hi-IN',
+        'zh-cn': 'zh-CN',
+        'ja': 'ja-JP',
+        'ar': 'ar-SA',
+        'ru': 'ru-RU',
+        'pt': 'pt-PT'
+    };
+
+    function getCsrfToken() {
+        const match = document.cookie.match(/(?:^|; )csrftoken=([^;]+)/);
+        return match ? decodeURIComponent(match[1]) : '';
+    }
+
+    function selectedLanguageCode() {
+        return (languageSelect.value || 'en').toLowerCase();
+    }
+
+    function selectedRecognitionLanguage() {
+        return languageToBcp47[selectedLanguageCode()] || 'en-US';
+    }
+
+    function setStatus(text) {
+        statusEl.textContent = text;
+    }
+
+    function setTranscript(text) {
+        transcriptEl.textContent = text || 'Listening for your next command...';
+    }
+
+    function setResponse(text) {
+        currentResponseText = text || '';
+        responseEl.textContent = currentResponseText || 'No response available.';
+    }
+
+    function updateDetectedLanguageDisplay(code, name) {
+        if (!detectedLanguageEl) {
+            return;
+        }
+        detectedLanguageEl.textContent = name ? `${name} (${code})` : (code || 'Unknown');
+    }
+
+    function resetDraft() {
+        speechFinalText = '';
+        speechInterimText = '';
+    }
+
+    async function bridgeTranslate(text, targetLanguage, sourceLanguage = 'auto') {
+        const formData = new FormData();
+        formData.append('text', text);
+        formData.append('target_language', targetLanguage);
+        formData.append('source_language', sourceLanguage);
+
+        const response = await fetch('{% url "voice_assistant:language_bridge" %}', {
+            method: 'POST',
+            headers: { 'X-CSRFToken': getCsrfToken() },
+            body: formData,
+        });
+
+        const data = await response.json();
+        if (!data.success) {
+            throw new Error(data.error || 'Language bridge failed');
+        }
+        return data;
+    }
+
+    function configureRecognition() {
+        const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SR) {
+            return;
+        }
+
+        speechRecognition = new SR();
+        speechRecognition.continuous = true;
+        speechRecognition.interimResults = true;
+        speechRecognition.lang = selectedRecognitionLanguage();
+
+        speechRecognition.onresult = (event) => {
+            let finalPart = '';
+            let interimPart = '';
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                const transcript = event.results[i][0].transcript;
+                if (event.results[i].isFinal) {
+                    finalPart += transcript + ' ';
+                } else {
+                    interimPart += transcript + ' ';
+                }
+            }
+            if (finalPart) {
+                speechFinalText = (speechFinalText + ' ' + finalPart).trim();
+            }
+            speechInterimText = interimPart.trim();
+            setTranscript((speechFinalText + ' ' + speechInterimText).trim());
+        };
+
+        speechRecognition.onerror = () => {
+            // Recorder-based STT remains fallback.
+        };
+    }
+
+    async function sendToAssistant(messageText) {
+        const formData = new FormData();
+        formData.append('text', messageText);
+        const response = await fetch('{% url "voice_assistant:process_command" %}', {
+            method: 'POST',
+            headers: { 'X-CSRFToken': getCsrfToken() },
+            body: formData,
+        });
+        const data = await response.json();
+        if (!data.success) {
+            throw new Error(data.error || 'Failed to get assistant response');
+        }
+        return data.reply || 'No assistant response.';
+    }
+
+    async function transcribeAudio(blob, languageCode) {
+        const formData = new FormData();
+        formData.append('audio', blob, 'voice_message.webm');
+        formData.append('language', languageCode || 'en-US');
+        const response = await fetch('{% url "voice_assistant:transcribe_voice" %}', {
+            method: 'POST',
+            headers: { 'X-CSRFToken': getCsrfToken() },
+            body: formData,
+        });
+        const data = await response.json();
+        if (!data.success || !data.text) {
+            throw new Error(data.error || 'Could not recognize speech');
+        }
+        return data.text;
+    }
+
+    async function processCommand(commandText) {
+        const trimmed = (commandText || '').trim();
+        if (!trimmed) {
+            setStatus('No command detected. Try again.');
+            return;
+        }
+
+        const outputLanguage = selectedLanguageCode();
+        const translationSource = autoDetectToggle.checked ? 'auto' : outputLanguage;
+
+        setTranscript(trimmed);
+        setStatus('Thinking...');
+        setResponse('Generating response...');
+
+        try {
+            const normalized = await bridgeTranslate(trimmed, 'en', translationSource);
+            updateDetectedLanguageDisplay(normalized.detected_language, normalized.detected_language_name);
+
+            const aiReplyEnglish = await sendToAssistant(normalized.translated_text || trimmed);
+
+            let finalReply = aiReplyEnglish;
+            if (outputLanguage !== 'en') {
+                const translatedReply = await bridgeTranslate(aiReplyEnglish, outputLanguage, 'en');
+                finalReply = translatedReply.translated_text || aiReplyEnglish;
+            }
+
+            setResponse(finalReply);
+            setStatus('Done. Tap mic for the next command.');
+        } catch (error) {
+            setResponse('System error: ' + (error.message || 'Voice request failed.'));
+            setStatus('Request failed. Please retry.');
+        }
+    }
+
+    async function startRecording() {
+        try {
+            resetDraft();
+            setStatus('Listening... speak now.');
+            setTranscript('Listening...');
+            setResponse('Waiting for transcript...');
+
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const preferredMimeTypes = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4'];
+            const mimeType = preferredMimeTypes.find((type) => MediaRecorder.isTypeSupported(type));
+            recordedMimeType = mimeType || 'audio/webm';
+
+            mediaRecorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
+            audioChunks = [];
+
+            mediaRecorder.ondataavailable = (event) => {
+                if (event.data && event.data.size > 0) {
+                    audioChunks.push(event.data);
+                }
+            };
+
+            mediaRecorder.onstop = async () => {
+                if (speechRecognition) {
+                    try { speechRecognition.stop(); } catch (_) {}
+                }
+
+                const browserTranscript = (speechFinalText + ' ' + speechInterimText).trim();
+                resetDraft();
+
+                try {
+                    if (browserTranscript) {
+                        await processCommand(browserTranscript);
+                    } else {
+                        setStatus('Transcribing audio...');
+                        const audioBlob = new Blob(audioChunks, { type: recordedMimeType });
+                        const transcript = await transcribeAudio(audioBlob, selectedRecognitionLanguage());
+                        await processCommand(transcript);
+                    }
+                } catch (error) {
+                    setStatus('Voice processing failed.');
+                    setResponse('System error: ' + (error.message || 'Unable to process voice command.'));
+                } finally {
+                    stream.getTracks().forEach((track) => track.stop());
+                }
+            };
+
+            mediaRecorder.start();
+            if (speechRecognition) {
+                speechRecognition.lang = selectedRecognitionLanguage();
+                try { speechRecognition.start(); } catch (_) {}
+            }
+
+            isRecording = true;
+            micBtn.classList.add('recording');
+            micIcon.className = 'fas fa-stop-circle';
+        } catch (error) {
+            setStatus('Microphone access is required.');
+            setResponse('Please allow microphone access and try again.');
+        }
+    }
+
+    function stopRecording() {
+        if (!mediaRecorder || !isRecording) {
+            return;
+        }
+        setStatus('Processing your voice input...');
+        isRecording = false;
+        micBtn.classList.remove('recording');
+        micIcon.className = 'fas fa-microphone';
+        mediaRecorder.stop();
+    }
+
+    function speakResponseText() {
+        if (!currentResponseText) {
+            setStatus('No response to speak yet.');
+            return;
+        }
+        if (!('speechSynthesis' in window)) {
+            setStatus('Speech synthesis is not supported in this browser.');
+            return;
+        }
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(currentResponseText);
+        utterance.lang = selectedRecognitionLanguage();
+        utterance.rate = 0.95;
+        utterance.pitch = 1.0;
+        utterance.onstart = () => setStatus('Speaking response...');
+        utterance.onend = () => setStatus('Speech finished.');
+        utterance.onerror = () => setStatus('Speech output failed.');
+        window.speechSynthesis.speak(utterance);
+    }
+
+    micBtn.addEventListener('click', () => {
+        if (isRecording) {
+            stopRecording();
+        } else {
+            startRecording();
+        }
+    });
+
+    shortcutEls.forEach((el) => {
+        const trigger = () => processCommand(el.dataset.command || el.textContent || '');
+        el.addEventListener('click', trigger);
+        el.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                trigger();
+            }
+        });
+    });
+
+    languageSelect.addEventListener('change', () => {
+        const code = selectedLanguageCode();
+        const name = languageSelect.options[languageSelect.selectedIndex].text.replace(/\s*\(.+\)\s*$/, '');
+        updateDetectedLanguageDisplay(code, name);
+        if (speechRecognition && !autoDetectToggle.checked) {
+            speechRecognition.lang = selectedRecognitionLanguage();
+        }
+        setStatus(`Response language switched to ${name}.`);
+    });
+
+    autoDetectToggle.addEventListener('change', () => {
+        setStatus(autoDetectToggle.checked ? 'Auto language detection enabled.' : 'Manual language mode enabled.');
+    });
+
+    if (ttsPlayBtn) {
+        ttsPlayBtn.addEventListener('click', speakResponseText);
+    }
+    if (ttsPauseBtn) {
+        ttsPauseBtn.addEventListener('click', () => {
+            if ('speechSynthesis' in window && window.speechSynthesis.speaking) {
+                window.speechSynthesis.pause();
+                setStatus('Speech paused.');
+            }
+        });
+    }
+    if (ttsResumeBtn) {
+        ttsResumeBtn.addEventListener('click', () => {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.resume();
+                setStatus('Speech resumed.');
+            }
+        });
+    }
+    if (ttsStopBtn) {
+        ttsStopBtn.addEventListener('click', () => {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                setStatus('Speech stopped.');
+            }
+        });
+    }
+
+    configureRecognition();
+    const initialCode = selectedLanguageCode();
+    const initialName = languageSelect.options[languageSelect.selectedIndex].text.replace(/\s*\(.+\)\s*$/, '');
+    updateDetectedLanguageDisplay(initialCode, initialName);
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,10 @@
+.planner-time-block {
+    min-height: 72px;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 255, 156, 0.12);
+    background: rgba(255, 255, 255, 0.035);
+}
+
+.planner-task-glow {
+    box-shadow: 0 0 0 1px rgba(0, 255, 156, 0.14), 0 0 24px rgba(0, 255, 156, 0.08);
+}
