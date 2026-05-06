@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Email AI - AI Personal Assistant{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'email_ai/module.css' %}">
+<style>
+    .email-grid { min-height: calc(100vh - 160px); }
+    .category-badge {
+        display: inline-block;
+        padding: 0.3rem 0.65rem;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    .category-urgent { background: rgba(255, 71, 87, 0.2); color: #ff4757; }
+    .category-follow-up { background: rgba(255, 159, 64, 0.2); color: #ff9f40; }
+    .category-notification { background: rgba(52, 168, 224, 0.2); color: #34a8e0; }
+    .category-spam { background: rgba(108, 117, 125, 0.2); color: #6c757d; }
+    .category-concern { background: rgba(220, 53, 69, 0.2); color: #dc3545; }
+    .category-positive { background: rgba(40, 167, 69, 0.2); color: #28a745; }
+    .category-personal { background: rgba(0, 255, 156, 0.2); color: #00ff9c; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-4 email-grid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-gradient-premium mb-1">Email AI</h2>
+            <p class="text-secondary mb-0">Classification, auto-reply drafting, and priority sorting.</p>
+        </div>
+        <span class="badge border border-accent text-accent">Inbox triage</span>
+    </div>
+
+    <!-- Email Statistics -->
+    {% if stats %}
+    <div class="row g-3 mb-4">
+        <div class="col-md-6 col-lg-3">
+            <div class="glass-card p-3 text-center">
+                <div class="h4 text-gradient-premium mb-1">{{ stats.total }}</div>
+                <div class="text-secondary small">Total emails</div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="glass-card p-3 text-center">
+                <div class="h4 text-danger mb-1">{{ stats.urgent }}</div>
+                <div class="text-secondary small">High priority</div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="glass-card p-3 text-center">
+                <div class="h4 text-warning mb-1">{{ stats.follow_ups }}</div>
+                <div class="text-secondary small">Follow-ups</div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="glass-card p-3 text-center">
+                <div class="h4 text-info mb-1">{{ stats.needs_reply }}</div>
+                <div class="text-secondary small">Need reply</div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Search Filter -->
+    <form class="glass-panel p-3 mb-4" method="get">
+        <div class="input-group input-group-lg">
+            <span class="input-group-text bg-transparent border-0 text-accent"><i class="fas fa-search"></i></span>
+            <input type="search" class="form-control form-control-premium" name="q" value="{{ query }}" placeholder="Search by sender, subject, category...">
+            <button class="btn btn-premium" type="submit">Filter</button>
+        </div>
+    </form>
+
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <div class="glass-panel p-4 h-100">
+                <h6 class="text-uppercase text-secondary small fw-bold mb-3">
+                    <i class="fas fa-inbox text-accent me-2"></i>Priority inbox (sorted by urgency)
+                </h6>
+                <div class="d-grid gap-3">
+                    {% for item in inbox %}
+                    <div class="glass-card p-3">
+                        <div class="d-flex justify-content-between align-items-start gap-3 mb-2">
+                            <div style="flex: 1;">
+                                <div class="fw-bold mb-1">{{ item.subject }}</div>
+                                <div class="text-secondary small mb-2">{{ item.sender_name }} • {{ item.timestamp }}</div>
+                                <div class="mb-2">
+                                    <span class="category-badge category-{{ item.category }}">{{ item.category }}</span>
+                                    <span class="text-secondary small ms-2">
+                                        {% if item.priority == 'high' %}
+                                            <i class="fas fa-exclamation-circle text-danger"></i> High Priority
+                                        {% elif item.priority == 'medium' %}
+                                            <i class="fas fa-arrow-right text-warning"></i> Medium
+                                        {% else %}
+                                            <i class="fas fa-circle text-muted"></i> Low
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                <div class="text-secondary small">{{ item.body }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="text-secondary small">No messages match your filter.</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="glass-panel p-4 h-100">
+                <h6 class="text-uppercase text-secondary small fw-bold mb-3">
+                    <i class="fas fa-robot text-accent me-2"></i>AI reply suggestions
+                </h6>
+                {% for item in inbox|slice:":3" %}
+                <div class="glass-card p-3 mb-3">
+                    <div class="text-secondary small mb-1">
+                        <strong>{{ item.sender_name }}</strong> - {{ item.subject|truncatewords:5 }}
+                    </div>
+                    <div class="small mb-2 text-accent">
+                        <i class="fas fa-lightbulb-on"></i> Suggested reply:
+                    </div>
+                    <div class="text-secondary small">{{ item.ai_reply }}</div>
+                    <button class="btn btn-sm btn-outline-accent mt-2" onclick="copyToClipboard('{{ item.ai_reply|escapejs }}')">
+                        <i class="fas fa-copy me-1"></i>Copy
+                    </button>
+                </div>
+                {% empty %}
+                <div class="text-secondary small">No emails available for reply suggestions.</div>
+                {% endfor %}
+
+                <div class="glass-card p-3">
+                    <div class="small text-secondary mb-1">
+                        <i class="fas fa-info-circle"></i> Classification summary
+                    </div>
+                    <ul class="small text-secondary list-unstyled">
+                        <li><span class="category-badge category-urgent">Urgent</span> - Time-sensitive, action required</li>
+                        <li><span class="category-badge category-follow-up">Follow-up</span> - Needs response or action</li>
+                        <li><span class="category-badge category-notification">Notification</span> - FYI, low priority</li>
+                        <li><span class="category-badge category-spam">Spam</span> - Promotional/automated</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        alert('Reply copied to clipboard!');
+    });
+}
+</script>
+{% endblock %}
