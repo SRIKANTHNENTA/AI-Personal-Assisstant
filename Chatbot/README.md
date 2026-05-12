@@ -1,9 +1,9 @@
-# 🧠 Neural Dialogue Engine (Ted)
+#  Neural Dialogue Engine (Ted)
 
 ## Overview
 This directory houses the **Neural Dialogue Engine**, internally codenamed **Ted**. It serves as the primary intent recognition and conversational core for the AI Personal Assistant. Using Deep Learning and NLP, it classifies user messages and facilitates intelligent interactions.
 
-## 🚀 Key Functionalities
+##  Key Functionalities
 
 ### 1. Intent Classification
 - **Neural Core**: Uses a Keras-based Deep Neural Network to classify user queries into over 30+ specialized categories.
@@ -21,11 +21,11 @@ Ted is seamlessly integrated into the main Django application's `chat_companion`
 - Persistent user memory and fact-learning.
 - Context-aware responses based on user history.
 
-## 📁 Directory Structure
+##  Directory Structure
 - `chatbot_codes/`: Contains the training scripts (`train_chatbot.py`), model (`mymodel.h5`), and the extensive intent database (`intents.json`).
 - `UI/`: Legacy standalone UI assets.
 
-## 🛠️ Standalone Usage (Local)
+##  Standalone Usage (Local)
 While primary usage is through the Django dashboard, you can run the standalone flask version:
 1. Navigate to this directory: `cd Chatbot`
 2. Install requirements: `pip install -r requirements.txt`
